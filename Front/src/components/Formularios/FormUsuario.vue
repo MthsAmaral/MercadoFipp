@@ -100,8 +100,8 @@
   }
   </script>
   
-  <style scoped>
-/* Tipografia e base */
+<style scoped>
+/* Tipografia e base 
 * {
   margin: 0;
   padding: 0;
@@ -202,7 +202,7 @@ body {
   max-width: 1000px;
 }
 
-/* Estilo da tabela */
+/* Estilo da tabela 
 #customers {
   font-family: 'VT323', 'Share Tech Mono', monospace;
   border-collapse: collapse;
@@ -232,7 +232,7 @@ body {
   text-shadow: 0 0 5px #00ff00;
 }
 
-/* Inputs e formulário */
+/* Inputs e formulário 
 input[type="text"],
 input[type="email"],
 input[type="password"],
@@ -282,7 +282,7 @@ input[type="submit"]:hover {
   box-shadow: 0 0 15px #00ff00, inset 0 0 10px #00ff00;
 }
 
-/* Mensagens */
+/* Mensagens 
 .message {
   text-align: center;
   font-size: 1.1em;
@@ -301,5 +301,5 @@ input[type="submit"]:hover {
 
 .message.processing {
   color: #ffff00;
-}
+}*/
 </style>

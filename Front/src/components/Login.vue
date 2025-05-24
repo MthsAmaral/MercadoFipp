@@ -59,6 +59,7 @@ export default {
 </script>
 
 <style>
+/*
 * {
 
     margin: 0;
@@ -87,7 +88,7 @@ body {
 
     overflow: hidden; 
 
-    background-image: url('https://media.giphy.com/media/AOSwwqVjNZlDO/giphy.gif'); /*imagem da matrix */
+    background-image: url('https://media.giphy.com/media/AOSwwqVjNZlDO/giphy.gif'); 
 
     background-size: cover;
 
@@ -525,6 +526,6 @@ form button[type="submit"]:hover {
 
     }
 
-}
+}*/
 
 </style>
