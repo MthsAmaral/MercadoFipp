@@ -1,14 +1,20 @@
 <template>
-  <div>
-    <h1>Cadastro de Categoria</h1>
-    <form @submit.prevent="gravar">
-      <label for="idcat">Id</label>
-      <input type="text" id="idcat" v-model="id" disabled />
-      <label for="name">Nome</label>
-      <input type="text" id="name" v-model="nome" />
-      <input type="submit" :value="id ? 'Alterar' : 'Cadastrar'" />
+  <div class="container mt-4">
+    <h1 class="mb-4">Cadastro de Categoria</h1>
+    <form @submit.prevent="gravar" class="card p-4 shadow-sm">
+      
+      <!-- Campo Id oculto -->
+      <input type="hidden" v-model="id" />
+
+      <div class="mb-3">
+        <label for="name" class="form-label">Nome da Categoria</label>
+        <input type="text" id="name" v-model="nome" class="form-control" required />
+      </div>
+
+      <button type="submit" class="btn btn-primary">
+        {{ id ? 'Alterar' : 'Cadastrar' }}
+      </button>
     </form>
-    <button @click="novaCategoria">Nova Categoria</button>
   </div>
 </template>
 
@@ -17,45 +23,57 @@ import axios from 'axios'
 
 export default {
   name: 'FormCategoria',
-  props: {
-    categoria: Object
-  },
   data() {
     return {
       id: 0,
-      nome: ''
-    }
-  },
-  watch: {
-    categoria: {
-      immediate: true,
-      handler(nova) {
-        if (nova) {
-          this.id = nova.id
-          this.nome = nova.nome
-        }
-      }
+      nome: '',
+      modoEdicao: false
     }
   },
   methods: {
     gravar() {
-      const url = 'http://localhost:8080/apis/categoria'
-      const data = { id: this.id, nome: this.nome }
+      const url = 'http://localhost:8080/apis/categoria';
+      const data = {
+        id: this.id,
+        nome: this.nome
+      };
+      if (!this.modoEdicao) {
 
-      axios.post(url, data)
-        .then(() => {
-          this.$emit('salvo') // avisa o pai que salvou
-          alert('Categoria salva com sucesso!')
-          this.novaCategoria()
-        })
-        .catch(error => {
-          alert('Erro ao salvar: ' + error)
-        })
+        axios.post(url, data)
+          .then(() => {
+            alert('Categoria salva com sucesso!')
+            this.$router.push('/geren-categorias')//redireciona para pagina gerenciar
+          })
+          .catch(error => {
+            alert('Erro ao salvar: ' + error)
+          })
+      } else {
+        axios.put(url, data)
+          .then(() => {
+            alert('Categoria atualizada com sucesso!')
+            this.modoEdicao = false
+            this.$router.push('/geren-categorias')
+          })
+      }
+
     },
-    novaCategoria() {
+    limparForm() {
       this.id = 0
       this.nome = ''
     }
+  },
+  mounted() {
+    this.limparForm()
+    const categoriaSalva = localStorage.getItem('categoriaParaEditar')
+    if (categoriaSalva) {
+      const categoria = JSON.parse(categoriaSalva);
+      this.id = categoria.id;
+      this.nome = categoria.nome;
+      localStorage.removeItem('categoriaParaEditar');
+      this.modoEdicao = true;
+    }
+    else
+      this.modoEdicao = false;
   }
 }
 </script>

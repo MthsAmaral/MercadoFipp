@@ -1,21 +1,39 @@
 <template>
-  <table>
-    <thead>
-      <tr>
-        <th>Id</th>
-        <th @click="ordenarNome()">Nome</th>
-        <th colspan="2">Ações</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="cat in categorias" :key="cat.id">
-        <td>{{ cat.id }}</td>
-        <td>{{ cat.nome }}</td>
-        <td><button @click="editar(cat.id)">Alterar</button></td>
-        <td><button @click="apagar(cat.id, cat.nome)">Apagar</button></td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="container mt-4">
+    <h1 class="mb-4">Gerenciar Categorias</h1>
+
+    <table class="table table-striped table-hover shadow-sm">
+      <thead class="table-dark">
+        <tr>
+          <th>ID</th>
+          <th style="cursor: pointer" @click="ordenarNome()">Nome &#x25B2;</th>
+          <th colspan="2">Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="cat in categorias" :key="cat.id">
+          <td>{{ cat.id }}</td>
+          <td>{{ cat.nome }}</td>
+          <td>
+            <button class="btn btn-sm btn-warning" @click="editar(cat.id)">
+              <i class="bi bi-pencil-fill"></i> Alterar
+            </button>
+          </td>
+          <td>
+            <button class="btn btn-sm btn-danger" @click="apagar(cat.id, cat.nome)">
+              <i class="bi bi-trash-fill"></i> Apagar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="text-end mt-4">
+      <button class="btn btn-success" @click="nova">
+        <i class="bi bi-plus-circle-fill"></i> Nova Categoria
+      </button>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -25,7 +43,8 @@ export default {
   name: 'GerenCategorias',
   data() {
     return {
-      categorias: []
+      categorias: [],
+      ordenado: true
     }
   },
   methods: {
@@ -33,6 +52,9 @@ export default {
       axios.get('http://localhost:8080/apis/categoria')
         .then(res => this.categorias = res.data)
         .catch(err => alert(err))
+    },
+    nova() {
+      this.$router.push('/form-categoria')  // redireciona para o formulário
     },
     apagar(id, nome) {
       if (window.confirm('Deseja excluir a categoria ' + nome + '?')) {
@@ -47,13 +69,21 @@ export default {
     editar(id) {
       axios.get('http://localhost:8080/apis/categoria/' + id)
         .then(res => {
-          this.$emit('editarCategoria', res.data)
+          localStorage.setItem('categoriaParaEditar', JSON.stringify(res.data))
+          this.$router.push('/form-categoria')  // redireciona para o formulário
         })
         .catch(err => alert(err))
     },
     ordenarNome() {
-      this.categorias.sort((a, b) => a.nome.localeCompare(b.nome))
+      if (this.ordem) {
+        this.categorias.sort((a, b) => a.nome.localeCompare(b.nome));
+      } else {
+        this.categorias.sort((a, b) => b.nome.localeCompare(a.nome));
+      }
+      this.ordem = !this.ordem; // inverte a ordem
     }
+
+
   },
   mounted() {
     this.carregarDados()

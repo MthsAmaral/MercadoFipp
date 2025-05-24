@@ -1,4 +1,5 @@
 <template>
+
   <nav class="navbar navbar-expand-lg" id="menu">
     <div class="container-fluid">
 
@@ -45,7 +46,7 @@
         <!-- Centro: barra de busca -->
         <div class="d-flex justify-content-center w-100">
           <form class="d-flex" role="search" style="max-width: 400px; width: 100%;">
-            <input class="form-control me-2" type="search" placeholder="Buscar produto" aria-label="Search">
+            <input class="form-control me-2" type="search" placeholder="Buscar por nome do produto" aria-label="Search">
             <button class="btn btn-custom" type="submit">Buscar</button>
           </form>
         </div>
