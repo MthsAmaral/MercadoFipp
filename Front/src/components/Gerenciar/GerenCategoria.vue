@@ -15,7 +15,7 @@
           <td>{{ cat.id }}</td>
           <td>{{ cat.nome }}</td>
           <td>
-            <button class="btn btn-sm btn-warning" @click="editar(cat.id)">
+            <button class="btn btn-sm btn-warning" @click="alterar(cat.id)">
               <i class="bi bi-pencil-fill"></i> Alterar
             </button>
           </td>
@@ -29,7 +29,7 @@
     </table>
 
     <div class="text-end mt-4">
-      <button class="btn btn-success" @click="nova">
+      <button class="btn btn-success" @click="cadastrar">
         <i class="bi bi-plus-circle-fill"></i> Nova Categoria
       </button>
     </div>
@@ -50,10 +50,10 @@ export default {
   methods: {
     carregarDados() {
       axios.get('http://localhost:8080/apis/categoria')
-        .then(res => this.categorias = res.data)
-        .catch(err => alert(err))
+        .then(response => this.categorias = response.data)
+        .catch(erro => alert(erro))
     },
-    nova() {
+    cadastrar() {
       this.$router.push('/form-categoria')  // redireciona para o formulário
     },
     apagar(id, nome) {
@@ -66,13 +66,13 @@ export default {
           .catch(error => alert(error))
       }
     },
-    editar(id) {
+    alterar(id) {
       axios.get('http://localhost:8080/apis/categoria/' + id)
-        .then(res => {
-          localStorage.setItem('categoriaParaEditar', JSON.stringify(res.data))
+        .then(response => {
+          localStorage.setItem('categoriaParaEditar', JSON.stringify(response.data))
           this.$router.push('/form-categoria')  // redireciona para o formulário
         })
-        .catch(err => alert(err))
+        .catch(erro => alert(erro))
     },
     ordenarNome() {
       if (this.ordem) {

@@ -1,7 +1,7 @@
 <template>
   <div class="container mt-4">
     <h1 class="mb-4">Cadastro de Categoria</h1>
-    <form @submit.prevent="gravar" class="card p-4 shadow-sm">
+    <form @submit.prevent="this.gravar" class="card p-4 shadow-sm">
       
       <!-- Campo Id oculto -->
       <input type="hidden" v-model="id" />
@@ -41,18 +41,18 @@ export default {
 
         axios.post(url, data)
           .then(() => {
-            alert('Categoria salva com sucesso!')
-            this.$router.push('/geren-categorias')//redireciona para pagina gerenciar
+            alert('Categoria gravada com sucesso!');
+            this.$router.push('/geren-categorias');//redireciona para pagina gerenciar
           })
           .catch(error => {
             alert('Erro ao salvar: ' + error)
           })
-      } else {
+      } else {//atualizar
         axios.put(url, data)
           .then(() => {
-            alert('Categoria atualizada com sucesso!')
+            alert('Categoria alterada com sucesso!')
             this.modoEdicao = false
-            this.$router.push('/geren-categorias')
+            this.$router.push('/geren-categorias');
           })
       }
 

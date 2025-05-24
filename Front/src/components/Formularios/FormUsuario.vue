@@ -1,105 +1,113 @@
 <template>
-    <div class="hello">
-      <h1>{{ msg }}</h1>
-      <div v-if="formOn">
-        <form @submit.prevent="this.gravar()">
-          <label for="idusr">Id</label>
-          <input type="text" id="idusr" v-model="id" placeholder="ID do Usuario..">
-          <label for="name">Nome</label>
-          <input type="text" id="name" v-model="nome" placeholder="Nome do Usuário..">
-          <label for="nivel">Nivel</label>
-          <input type="text" id="nivel" v-model="nivel" placeholder="Nivel aqui..." maxlength="1">
-          <label for="senha">Senha</label>
-          <input type="password" id="senha" v-model="senha" placeholder="Senha desejada ...">
-          <input type="submit" value="Cadastrar">
-        </form>
+  <div class="container mt-5">
+    <h2 class="mb-4 text-center">Cadastro de Usuário</h2>
+
+    <form @submit.prevent="gravar" class="card p-4 shadow-sm">
+      
+      <!-- Campo Id oculto -->
+      <input type="hidden" id="idusr" v-model="id"/>
+
+      <div class="mb-3">
+        <label for="name" class="form-label">Nome</label>
+        <!--tamanho maximo 20-->
+        <input type="text" maxlength="20" id="name" v-model="nome" class="form-control" placeholder="Nome do Usuário..." required/>
       </div>
-      <div class="botao-container">
-        <button class="nova-categoria-btn" @click="novoUsuario">Novo Usuário</button>
+
+      <div class="mb-3">
+        <label for="nivel" class="form-label">Nível</label>
+        <select id="nivel" v-model="nivel" class="form-select" required>
+          <option disabled value="">Selecione o nível do privilégio</option>
+          <option value="1">Administrador</option>
+          <option value="2">Vendedor/Comprador</option>
+        </select>
       </div>
-      <div>
-        <table id="customers">
-          <thead>
-            <tr>
-              <th>Id</th>
-              <th>Nome</th>
-              <th>Nivel</th>
-              <th>Senha</th>
-              <th colspan="2">Ações</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="usr in this.usuario">
-              <td>{{usr.id}}</td>
-              <td>{{usr.nome}}</td>
-              <td>{{usr.nivel}}</td>
-              <td>{{usr.senha}}</td>
-              <td><button @click="this.alterar(usr.id)">Alterar</button></td>
-              <td><button @click="this.apagar(usr.id)">Apagar</button></td>
-            </tr>
-          </tbody>
-        </table>
+
+      <div class="mb-3">
+        <label for="senha" class="form-label">Senha</label>
+        <!--tamanho maximo 10-->
+        <input type="password" maxlength="10" id="senha" v-model="senha" class="form-control" placeholder="Senha desejada..." required />
       </div>
-    </div>
-  </template>
-  
-  <script>
-  import axios from 'axios'
-  
-  export default {
-    name: 'FormUsuario',
-    props: {
-      msg: String
-    },
-    data(){
-      return {id:0, nome:"",nivel:"",senha:"", formOn:false, 
-      usuario:[]}
-    },
-    methods:{
-      mostrarForm(flag)
-      {
-        this.formOn=flag;
-      },
-      gravar(){
-        const url = 'http://localhost:8080/apis/usuario';
-        const data = { id: this.id, nome: this.nome, nivel: this.nivel, senha: this.senha};
-        axios.post(url, data)
-        .then(response => {
-          this.carregarDados();
-        })
-        .catch(error => {
-          alert('Erro:', error);
-        });
-        this.mostrarForm(false);
-      },
-      apagar(id){
-        axios.delete("http://localhost:8080/apis/usuario/"+id)
-        .then(result=>{this.carregarDados()})
-        .catch(error=>{alert(error)})
-      },
-      alterar(id){
-        formOn = true;
-        axios.get("http://localhost:8080/apis/usuario/"+id)
-        .then(result=>{
-          const usuario=result.data;
-          this.id = usuario.id;
-          this.nome = usuario.nome;
-          this.nivel = usuario.nivel;
-          this.senha = usuario.senha;
-        })
-      },
-      carregarDados(){
-        axios.get("http://localhost:8080/apis/usuario")
-        .then(result=>{this.usuario=result.data})
-        .catch(error=>{alert(error)})
-      }
-    },
-    mounted(){
-      this.carregarDados();
+
+      <div class="d-grid">
+        <button type="submit" class="btn btn-primary">
+          <i class="bi" :class="id ? 'bi-pencil-square' : 'bi-person-plus'"></i>
+          {{ id ? ' Alterar' : ' Cadastrar' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</template>
+
+
+<script>
+import axios from 'axios'
+
+export default {
+  name: 'FormUsuario',
+  data() {
+    return {
+      id: 0,
+      nome: '',
+      nivel: '',
+      senha: '',
+      modoEdicao: false
     }
+  },
+  methods: {
+    gravar() {
+      const url = 'http://localhost:8080/apis/usuario';
+      const data = { 
+        id: this.id, 
+        nome: this.nome,
+        nivel: this.nivel, 
+        senha: this.senha 
+      };
+      if (!this.modoEdicao) {
+        axios.post(url, data)
+          .then(() => {
+            alert('Usuário gravado com sucesso');
+            this.$router.push('/geren-usuarios');
+          })
+          .catch(error => {
+            alert('Erro ao salvar:', error);
+          });
+      }
+      else//atualizar
+      {
+        axios.put(url, data)
+          .then(() => {
+            alert('Usuário alterado com sucesso!');
+            this.modoEdicao = false;
+            this.$router.push('/geren-usuarios');
+          })
+      }
+
+    },
+    limparForm() {
+      this.id = 0
+      this.nome = ''
+      this.nivel = ''
+      this.senha = ''
+    }
+  },
+  mounted() {
+    this.limparForm();
+    const usuarioSalvo = localStorage.getItem('usuarioParaEditar')
+    if (usuarioSalvo) {
+      const usuario = JSON.parse(usuarioSalvo);
+      this.id = usuario.id;
+      this.nome = usuario.nome;
+      this.nivel = usuario.nivel;
+      this.senha = usuario.senha;
+      localStorage.removeItem('usuarioParaEditar');
+      this.modoEdicao = true;
+    }
+    else
+      this.modoEdicao = false;
   }
-  </script>
-  
+}
+</script>
+
 <style scoped>
 /* Tipografia e base 
 * {
