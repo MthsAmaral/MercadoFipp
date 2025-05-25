@@ -39,13 +39,13 @@ public class UsuarioRestController {
             return ResponseEntity.badRequest().body(new Erro("usuario não encontrado!"));
     }
 
-    @GetMapping("nome/{nome}")
+    @GetMapping("/nome/{nome}")
     public ResponseEntity<Object> getUsuarioNome(@PathVariable(name = "nome") String nome){
         Usuario usuario = usuarioService.getByNome(nome);
         if(usuario != null)
             return ResponseEntity.ok(usuario);
         else
-            return ResponseEntity.badRequest().body(new Erro("usuario não encontrado!"));
+            return ResponseEntity.badRequest().body(new Erro("Não foi possível recuperar o Usuário com esse nome!!"));
     }
 
     @PostMapping("/logar")
