@@ -1,59 +1,61 @@
 <!--tem que terminar esta com erro corrigir a logica-->
 <template>
-  <div id="background-overlay"></div>
+    <div class="container mt-4">
+        <h1 class="mb-4">Login Usuário</h1>
+        <form @submit.prevent="this.logar()" class="card p-4 shadow-sm">
 
-  <div class="terminal-window">
-    <header class="terminal-header">
-      <span class="terminal-title">PORTAL_DE_ACESSO :: SISTEMA_SEGURANÇA</span>
-      <div class="terminal-controls">
-        <span class="control-btn minimize">_</span>
-        <span class="control-btn maximize">[]</span>
-        <span class="control-btn close">X</span>
-      </div>
-    </header>
+            <div class="mb-3">
+                <label for="name" class="form-label">Usuário</label>
+                <input type="text" maxlength="20" id="name" v-model="nome" class="form-control" required />
+            </div>
 
-    <div class="terminal-body">
-      <div id="hacker-typer-output">
-        <span class="prompt">> </span><span id="typer"></span><span class="cursor">|</span>
-      </div>
+            <div class="mb-3">
+                <label for="name" class="form-label">Senha</label>
+                <input type="password" maxlength="10" id="name" v-model="senha" class="form-control" required />
+            </div>
 
-      <div class="form-container">
-        <div class="form-toggle">
-          <button :class="{ active: isLogin }" @click="Login = true">Entrar</button>
-        </div>
-
-        <form v-if="Login" @submit.prevent="handleLogin" class="active-form">
-          <h2>// Acesso ao Sistema //</h2>
-          <div class="input-group">
-            <label for="nome">Nome:</label>
-            <input v-model="loginUser" id="nome" required placeholder="Digite usuário" />
-          </div>
-          <div class="input-group">
-            <label for="senha">Senha:</label>
-            <input type="password" v-model="loginSenha" id="senha" required placeholder="Digite sua senha" />
-          </div>
-          <button type="submit">Entrar</button>
-          <p class="message">{{ loginMessage }}</p>
+            <button type="submit" class="btn btn-primary">
+                Entrar
+            </button>
+            <router-link class="text-decoration-none" to="/home">
+                <button class="btn btn-secondary mt-2 mx-2" type="button">Voltar</button>
+            </router-link>
         </form>
-      </div>
     </div>
-  </div>
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
-  name: 'Login',
-  data() {
-    return {
-      loginUser: '',
-      loginPass: ''
+    name: 'Login',
+    data() {
+        return {
+            nome: "",
+            senha: ""
+        }
+    },
+    methods: {
+         logar() {
+            const url = "http://localhost:8080/apis/usuario/logar";
+            const data = new FormData();
+            data.append("nome", this.nome);
+            data.append("senha", this.senha);
+            axios.post(url, data)
+                .then(resposta => {
+                    console.log(resposta);
+                    localStorage.setItem("usuario", JSON.stringify(resposta.data));
+                    this.$router.push("/home");
+                })
+                .catch(erro => {
+                    console.log(erro);
+                });
+        }
+    },
+    mounted() {
+        if(localStorage.getItem("usuario"))
+            this.$router.push("/home");
     }
-  },
-  methods: {
-    handleLogin() {
-      
-    }
-  }
 }
 
 </script>
@@ -527,5 +529,4 @@ form button[type="submit"]:hover {
     }
 
 }*/
-
 </style>

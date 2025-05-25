@@ -14,6 +14,7 @@ import GerenAnuncios from './components/Gerenciar/GerenAnuncio.vue'
 
 import App from './App.vue'
 import Login from './components/Login.vue'
+import CriarConta from './components/CriarConta.vue'
 //import para todos os componentes
 
 
@@ -26,11 +27,14 @@ const router = createRouter({
             { path: '/form-usuario', component: FormUsuario, props: true },
             { path: '/form-anuncio', component: FormAnuncio, props: true },
 
-            { path: '/form-login', component: Login, props:true},
+            { path: '/login', component: Login, props:true},
+            { path: '/criar-conta', component: CriarConta, props:true},
 
             { path: '/geren-categorias', component: GerenCategorias, props: true},
             { path: '/geren-usuarios', component: GerenUsuarios, props: true },
             { path: '/geren-anuncios', component: GerenAnuncios, props: true }
+
+            
             
         ]
 });

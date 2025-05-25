@@ -1,59 +1,57 @@
 <template>
-
-  <nav class="navbar navbar-expand-lg" id="menu">
+  <nav class="navbar navbar-expand-lg bg-dark navbar-dark" id="menu">
     <div class="container-fluid">
 
       <!-- Título -->
-      <h1 class="navbar-brand mb-0">Mercado Fipp</h1>
+      <router-link class="navbar-brand mb-0" to="/home">Mercado Fipp</router-link>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-              data-bs-target="#navbarSupportedContent"
-              aria-controls="navbarSupportedContent" aria-expanded="false"
-              aria-label="Toggle navigation">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse w-100" id="navbarSupportedContent">
-        <!-- Lado esquerdo: links -->
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-center">
-
-          <li class="nav-item ms-2">
-            <router-link class="nav-link custom-btn" to="/home">Home</router-link>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <router-link class="nav-link" to="/form-anuncio">Anúncio</router-link>
           </li>
-
-          <li class="nav-item ms-2">
-            <router-link class="nav-link custom-btn" to="/form-anuncio">Anuncio</router-link>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/form-pergunta">Perguntas</router-link>
           </li>
-
-          <li class="nav-item ms-2">
-            <router-link class="nav-link custom-btn" to="/form-pergunta">Perguntas</router-link>
-          </li>
-
-          <li class="nav-item dropdown ms-2">
-            <a class="nav-link dropdown-toggle custom-btn" role="button" data-bs-toggle="dropdown"
-               aria-expanded="false">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Gerenciar
             </a>
             <ul class="dropdown-menu">
               <li><router-link class="dropdown-item" to="/geren-usuarios">Usuários</router-link></li>
               <li><router-link class="dropdown-item" to="/geren-categorias">Categorias</router-link></li>
-              <li><router-link class="dropdown-item" to="/geren-anuncios">Anuncios</router-link></li>
+              <li><router-link class="dropdown-item" to="/geren-anuncios">Anúncios</router-link></li>
             </ul>
           </li>
-
         </ul>
 
         <!-- Centro: barra de busca -->
-        <div class="d-flex justify-content-center w-100">
-          <form class="d-flex" role="search" style="max-width: 400px; width: 100%;">
-            <input class="form-control me-2" type="search" placeholder="Buscar por nome do produto" aria-label="Search">
-            <button class="btn btn-custom" type="submit">Buscar</button>
-          </form>
-        </div>
+        <form class="d-flex mx-auto" role="search" style="max-width: 400px; width: 100%;">
+          <input class="form-control me-2" type="search" placeholder="Buscar por nome do produto" aria-label="Search">
+          <button class="btn btn-outline-light" type="submit">Buscar</button>
+        </form>
 
-        <!-- Direita: Login -->
-        <div class="ms-auto">
-          <router-link class="nav-link custom-btn" to="/form-login">Login</router-link>
+        <!-- Direita: login e usuário -->
+        <div class="d-flex align-items-center">
+          <span v-if="usuario" class="text-white me-3">Seja bem-vindo, {{ usuario.nome }}</span>
+
+          <router-link v-if="usuario" to="/home">
+            <button class="btn btn-danger me-2" @click="sair()">Sair</button>
+          </router-link>
+
+          <router-link v-else to="/login">
+            <button class="btn btn-outline-light me-2">Login</button>
+          </router-link>
+
+          <router-link v-if="!usuario" to="/criar-conta">
+            <button class="btn btn-light">Registrar</button>
+          </router-link>
         </div>
 
       </div>
@@ -65,7 +63,27 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'Home',
+  data() {
+    return{
+      usuario: null
+    }
+    
+  },
+  methods: {
+    sair() {
+      localStorage.removeItem("usuario");
+      this.usuario = null;
+    }
+  },
+  mounted() {
+    this.usuario = JSON.parse(localStorage.getItem("usuario"));
+  },
+  watch: {
+    $route() {
+      this.usuario = JSON.parse(localStorage.getItem("usuario"));
+    }
+  }
 }
 </script>
 
