@@ -18,7 +18,7 @@ public class AccessFilter implements Filter{
         String method = req.getMethod();
         String path = req.getRequestURI();
 
-        if (method.equals("POST") && path.contains("/apis/usuario") || method.equals("GET") && path.contains("/apis/usuario/get-nomes")) {
+        if (method.equals("POST") && path.contains("/apis/usuario") || method.equals("GET") && path.contains("/apis/usuario/get-nome/")) {
             // Permitir acesso público a POST /apis/usuario (cadastro de usuário)
             chain.doFilter(request, response);
         } else if (method.equals("GET") && path.startsWith("/apis/anuncio")) {
@@ -36,23 +36,23 @@ public class AccessFilter implements Filter{
             int nivel = Integer.parseInt(claims.get("nivel").toString());
 
             // Níveis do sistema:
-            // 0 = adm
-            // 1 = usuário comum (acessa poucos conteúdos e não consegue realizar exclusões)
-            // 2 = publico (acessa quase nada)
+            // 1 = adm
+            // 2 = usuário comum (acessa poucos conteúdos e não consegue realizar exclusões)
+
 
             // TRATAR A CATEGORIA
             if (path.contains("/apis/categoria")) {
                 // TRATAMENTO DA CATEGORIA
                 if (method.equals("GET")) {
                     // GET categoria: adm e usuário comum
-                    if (nivel == 0 || nivel == 1) {
+                    if (nivel == 1 || nivel == 2) {
                         chain.doFilter(request, response);
                     } else {
                         forbidden(res);
                     }
                 } else if (method.equals("POST") || method.equals("PUT") || method.equals("DELETE")) {
                     // só adm pode POST, PUT, DELETE em categoria
-                    if (nivel == 0) {
+                    if (nivel == 1) {
                         chain.doFilter(request, response);
                     } else {
                         forbidden(res);
@@ -64,14 +64,14 @@ public class AccessFilter implements Filter{
                 // TRATAMENTO PARA O USUÁRIO
                 if (method.equals("GET")) {
                     // GET usuário (qualquer GET com /apis/user/**) - adm e usuário comum
-                    if (nivel == 0 || nivel == 1) {
+                    if (nivel == 1 || nivel == 2) {
                         chain.doFilter(request, response);
                     } else {
                         forbidden(res);
                     }
                 } else if (method.equals("DELETE")) {
                     // só adm pode deletar usuário
-                    if (nivel == 0) {
+                    if (nivel == 1) {
                         chain.doFilter(request, response);
                     } else {
                         forbidden(res);
@@ -81,7 +81,7 @@ public class AccessFilter implements Filter{
                     forbidden(res);
                 } else if (method.equals("PUT")) {
                     // SÓ O ADM PODE EDITAR UM USUÁRIO
-                    if (nivel == 0) {
+                    if (nivel == 1) {
                         chain.doFilter(request, response);
                     } else {
                         forbidden(res);
@@ -95,7 +95,7 @@ public class AccessFilter implements Filter{
                 if (method.equals("GET")) {
                     // GET id, GET por usuário
                     if (path.matches("/apis/anuncio/get-por-usuario/\\d+") || path.matches("/apis/anuncio/\\d+")) {
-                        if (nivel == 0 || nivel == 1) {
+                        if (nivel == 1 || nivel == 2) {
                             chain.doFilter(request, response);
                             return;
                         } else {
@@ -108,7 +108,7 @@ public class AccessFilter implements Filter{
                 // POST add-pergunta e add-resposta
                 if (method.equals("POST")) {
                     if (path.matches("/apis/anuncio/add-pergunta/\\d+/[^/]+") || path.matches("/apis/anuncio/add-resposta/\\d+/[^/]+")) {
-                        if (nivel == 0 || nivel == 1) {
+                        if (nivel == 1 || nivel == 2) {
                             chain.doFilter(request, response);
                             return;
                         } else {
@@ -119,7 +119,7 @@ public class AccessFilter implements Filter{
 
                     // POST anúncio normal (ex: criação)
                     if (path.contains("/apis/anuncio")) {
-                        if (nivel == 0 || nivel == 1) {
+                        if (nivel == 1 || nivel == 2) {
                             chain.doFilter(request, response);
                             return;
                         } else {
@@ -131,7 +131,7 @@ public class AccessFilter implements Filter{
 
                 // DELETE anúncio - só adm
                 if (method.equals("DELETE")) {
-                    if (nivel == 0) {
+                    if (nivel == 1) {
                         chain.doFilter(request, response);
                     } else {
                         forbidden(res);
