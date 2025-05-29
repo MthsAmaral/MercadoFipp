@@ -1,96 +1,152 @@
-<!--Testar fiz mais ou menos semelhante aos de categoria e usuario-->
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <div v-if="formOn">
-      <form @submit.prevent="gravar">
-        <label for="idanu">ID</label>
-        <input type="text" id="idanu" v-model="id" disabled placeholder="ID do Anúncio">
+  <div class="container mt-4">
+    <h1 class="mb-4">Cadastro de Anúncio</h1>
 
-        <label for="titleanu">Título</label>
-        <input type="text" id="titleanu" v-model="titulo" placeholder="Título do anúncio...">
+    <form @submit.prevent="gravarAnuncio" class="card p-4 shadow-sm">
+      <!-- Campo oculto se precisar do ID -->
+      <!-- <input type="hidden" v-model="id" /> -->
 
-        <label for="descanu">Descrição</label>
-        <input type="text" id="descanu" v-model="descricao" placeholder="Descrição do produto...">
+      <!-- Título -->
+      <div class="mb-3">
+        <label for="titulo" class="form-label">Título do Anúncio</label>
+        <input type="text" class="form-control" id="titulo" v-model="titulo"  required>
+      </div>
 
-        <label for="precoanu">Preço</label>
-        <input type="number" id="precoanu" v-model="preco" placeholder="Valor do produto...">
+      <!-- Descrição -->
+      <div class="mb-3">
+        <label for="descricao" class="form-label">Descrição</label>
+        <textarea class="form-control" id="descricao" v-model="descricao" rows="4" placeholder="Descreva o produto" required></textarea>
+      </div>
 
-        <label for="idfot">Foto</label>
-        <input type="file" id="idfot" @change="onFileChange" accept="image/*">
+      <!-- Categoria -->
+      <div class="mb-3">
+        <label for="categoria" class="form-label">Categoria</label>
+        <select class="form-select" id="categoria" v-model="categoriaId" required>
+          <option selected disabled>Selecione uma categoria</option>
+          <option v-for="categoria in categorias" :key="categoria.id" :value="categoria.id">
+            {{ categoria.nome }}
+          </option>
+        </select>
+      </div>
 
-        <input type="submit" value="Cadastrar">
-      </form>
-    </div>
+      <!-- Data -->
+      <div class="mb-3">
+        <label for="data" class="form-label">Data do Anúncio</label>
+        <input type="date" class="form-control" id="data" v-model="data" required>
+      </div>
+
+      <!-- Valor -->
+      <div class="mb-3">
+        <label for="valor" class="form-label">Valor</label>
+        <div class="input-group">
+          <span class="input-group-text">R$</span>
+          <input type="number" class="form-control" id="valor" v-model="preco" required>
+        </div>
+      </div>
+
+      <!-- Fotos -->
+      <div class="mb-3">
+        <label for="fotos" class="form-label">Escolha até 3 Fotos</label>
+        <input type="file" class="form-control" id="fotos" accept="image/*" multiple @change="adicionarArquivos">
+        <div class="form-text">Você pode adicionar até 3 imagens.</div>
+      </div>
+
+      <!-- Botões -->
+      <div class="d-flex justify-content-end">
+        <button type="submit" class="btn btn-primary me-2">
+          {{ id ? 'Alterar' : 'Cadastrar' }}
+        </button>
+        <router-link to="/anuncios" class="btn btn-secondary">Cancelar</router-link>
+      </div>
+    </form>
   </div>
 </template>
 
+
 <script>
 import axios from 'axios';
+import { toast } from 'vue3-toastify';
 
 export default {
   name: 'FormAnuncio',
-  props: {
-    msg: String
-  },
   data() {
     return {
-      id: 0,
       titulo: "",
       descricao: "",
-      preco: null,
-      foto: null,
-      formOn: false,
-      anuncio: []
+      preco: "",
+      data: null,
+      categoriaId: 0,
+      usuario: null,
+      perguntas: [],
+      fotos: [],
+      categorias: []
     };
   },
+
   methods: {
-    mostrarForm(flag) {
-      this.formOn = flag;
-    },
-    onFileChange(event) {
-      const file = event.target.files[0];
-      this.foto = file;
-    },
-    gravar() {
-      const formData = new FormData();
-      if (this.id) formData.append('id', this.id);
-      formData.append('titulo', this.titulo);
-      formData.append('descricao', this.descricao);
-      formData.append('preco', this.preco);
-
-      if (this.foto) {
-        formData.append('foto', this.foto);
-      }
-
-      axios.post('http://localhost:8080/apis/anuncio', formData, {
+    buscarCategorias() {
+      const url = "http://localhost:8080/apis/categoria";
+      axios.get(url, {
         headers: {
-          'Content-Type': 'multipart/form-data'
+          Authorization: JSON.parse(localStorage.getItem("usuario")).token
         }
       })
-      .then(response => {
-        alert('Anúncio salvo com sucesso!');
-        this.carregarDados();
-        this.mostrarForm(false);
-      })
-      .catch(error => {
-        alert('Erro ao salvar o anúncio: ' + error);
-      });
-    },
-    carregarDados() {
-      axios.get("http://localhost:8080/apis/anuncio")
-        .then(result => {
-          this.anuncio = result.data;
+        .then(resposta => {
+          console.log(resposta);
+          this.categorias = resposta.data;
         })
-        .catch(error => alert(error));
+        .catch(erro => {
+          console.log(erro);
+          toast.error("Erro ao carregar categorias!");
+        });
+    },
+    gravarAnuncio() {
+      const url = "http://localhost:8080/apis/anuncio";
+      const formData = new FormData();
+
+      const anuncio = {
+        titulo: this.titulo,
+        data: this.data,
+        descricao: this.descricao,
+        preco: this.preco,
+        categoria: {
+          id: this.categoriaId
+        },
+        usuario: this.usuario,
+        perguntas: []
+      };
+
+      formData.append("anuncio", new Blob([JSON.stringify(anuncio)], { type: "application/json" }));
+      this.fotos.forEach((foto) => {
+        formData.append("fotos", foto);
+      });
+
+      axios.post(url, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: JSON.parse(localStorage.getItem("usuario")).token
+        }
+      })
+        .then(resposta => {
+          console.log(resposta.data);
+          this.$router.push("/anuncios");
+          alert.success("anúncio cadastrado com sucesso!");
+        })
+        .catch(erro => {
+          console.error(erro);
+          toast.error("Erro ao cadastrar anúncio!");
+        });
+    },
+    adicionarArquivos(event) {
+      this.fotos = Array.from(event.target.files).slice(0, 3);
     }
   },
   mounted() {
-    this.carregarDados();
+    this.buscarCategorias()
+    this.usuario = JSON.parse(localStorage.getItem("usuario"));
+    if (!this.usuario)
+      this.$router.push("/");
   }
+
 };
 </script>
-
-<style>
-
-</style>

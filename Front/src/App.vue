@@ -3,7 +3,7 @@
     <div class="container-fluid">
 
       <!-- Título -->
-      <router-link class="navbar-brand mb-0" to="/home">Mercado Fipp</router-link>
+      <router-link class="navbar-brand mb-0" to="/">Mercado Fipp</router-link>
 
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,34 +12,40 @@
 
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <ul v-if="usuario" class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <router-link class="nav-link" to="/form-anuncio">Anúncio</router-link>
+            <router-link class="nav-link" to="/anuncios">Listar Anúncios</router-link>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Anuncio
+            </a>
+            <ul class="dropdown-menu">
+              <li><router-link class="dropdown-item" to="/anuncios/usuario/:idUsr">Meus Anuncios</router-link></li>
+              <li><router-link class="dropdown-item" to="/anuncios">Todos Anuncios</router-link></li>
+            </ul>
           </li>
           <li class="nav-item">
-            <router-link class="nav-link" to="/form-pergunta">Perguntas</router-link>
+            <router-link class="nav-link" to="/formulario/anuncio">Anunciar</router-link>
           </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Gerenciar
             </a>
             <ul class="dropdown-menu">
-              <li><router-link class="dropdown-item" to="/geren-usuarios">Usuários</router-link></li>
-              <li><router-link class="dropdown-item" to="/geren-categorias">Categorias</router-link></li>
-              <li><router-link class="dropdown-item" to="/geren-anuncios">Anúncios</router-link></li>
+              <li><router-link class="dropdown-item" to="/adm/usuarios">Usuários</router-link></li>
+              <li><router-link class="dropdown-item" to="/adm/categorias">Categorias</router-link></li>
+              <li><router-link class="dropdown-item" to="/adm/anuncios">Anúncios</router-link></li>
             </ul>
           </li>
         </ul>
 
-        <!-- Centro: barra de busca -->
-        <form class="d-flex mx-auto" role="search" style="max-width: 400px; width: 100%;">
-          <input class="form-control me-2" type="search" placeholder="Buscar por nome do produto" aria-label="Search">
-          <button class="btn btn-outline-light" type="submit">Buscar</button>
-        </form>
+        
 
         <!-- Direita: login e usuário -->
         <div class="d-flex align-items-center">
-          <span v-if="usuario" class="text-white me-3">Seja bem-vindo, {{ usuario.nome }}</span>
+          <div v-if="usuario" class="text-white me-3">{{ usuario.nome }}</div>
 
           <router-link v-if="usuario" to="/home">
             <button class="btn btn-danger me-2" @click="sair()">Sair</button>
@@ -58,12 +64,14 @@
     </div>
   </nav>
 
+  <!--chamar componente home aqui-->
+
   <router-view />
 </template>
 
 <script>
 export default {
-  name: 'Home',
+  name: 'App',
   data() {
     return{
       usuario: null

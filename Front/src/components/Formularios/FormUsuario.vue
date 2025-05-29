@@ -3,14 +3,15 @@
     <h2 class="mb-4 text-center">Cadastro de Usuário</h2>
 
     <form @submit.prevent="gravar" class="card p-4 shadow-sm">
-      
+
       <!-- Campo Id oculto -->
-      <input type="hidden" id="idusr" v-model="id"/>
+      <input type="hidden" id="idusr" v-model="id" />
 
       <div class="mb-3">
         <label for="name" class="form-label">Nome</label>
         <!--tamanho maximo 20-->
-        <input type="text" maxlength="20" id="name" v-model="nome" class="form-control" placeholder="Nome do Usuário..." required/>
+        <input type="text" maxlength="20" id="name" v-model="nome" class="form-control" placeholder="Nome do Usuário..."
+          required />
       </div>
 
       <div class="mb-3">
@@ -24,8 +25,13 @@
 
       <div class="mb-3">
         <label for="senha" class="form-label">Senha</label>
-        <!--tamanho maximo 10-->
-        <input type="password" maxlength="10" id="senha" v-model="senha" class="form-control" placeholder="Senha desejada..." required />
+        <div class="input-group">
+          <input :type="mostrarSenha ? 'text' : 'password'" class="form-control" id="senha" maxlength="10"
+            v-model="senha" required>
+          <button class="btn btn-outline-secondary" type="button" @click="mostrarSenha = !mostrarSenha">
+            {{ mostrarSenha ? 'Ocultar' : 'Mostrar' }}
+          </button>
+        </div>
       </div>
 
       <div class="d-grid">
@@ -41,6 +47,7 @@
 
 <script>
 import axios from 'axios'
+import { toast } from 'vue3-toastify';
 
 export default {
   name: 'FormUsuario',
@@ -50,35 +57,44 @@ export default {
       nome: '',
       nivel: '',
       senha: '',
-      modoEdicao: false
+      modoEdicao: false,
+      mostrarSenha: false,
     }
   },
   methods: {
     gravar() {
       const url = 'http://localhost:8080/apis/usuario';
-      const data = { 
-        id: this.id, 
+      const data = {
+        id: this.id,
         nome: this.nome,
-        nivel: this.nivel, 
-        senha: this.senha 
+        nivel: this.nivel,
+        senha: this.senha
       };
       if (!this.modoEdicao) {
-        axios.post(url, data)
+        axios.post(url, data, {
+          headers: {
+            Authorization: JSON.parse(localStorage.getItem("usuario")).token
+          }
+        })
           .then(() => {
-            alert('Usuário gravado com sucesso');
-            this.$router.push('/geren-usuarios');
+            toast.success('Usuário gravado com sucesso');
+            this.$router.push('/adm/usuarios');
           })
           .catch(error => {
-            alert('Erro ao salvar:', error);
+            toast.error('Erro ao salvar:', error);
           });
       }
       else//atualizar
       {
-        axios.put(url, data)
+        axios.put(url, data, {
+          headers: {
+            Authorization: JSON.parse(localStorage.getItem("usuario")).token
+          }
+        })
           .then(() => {
-            alert('Usuário alterado com sucesso!');
             this.modoEdicao = false;
-            this.$router.push('/geren-usuarios');
+            this.$router.push('/adm/usuarios');
+            toast.success('Usuário alterado com sucesso!');
           })
       }
 

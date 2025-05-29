@@ -37,7 +37,8 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
+import { toast } from 'vue3-toastify';
 
 export default {
   name: 'GerenCategorias',
@@ -49,30 +50,42 @@ export default {
   },
   methods: {
     carregarDados() {
-      axios.get('http://localhost:8080/apis/categoria')
+      axios.get("http://localhost:8080/apis/categoria",{
+                headers: {
+                    Authorization: JSON.parse(localStorage.getItem("usuario")).token
+                }
+            })
         .then(response => this.categorias = response.data)
-        .catch(erro => alert(erro))
+        .catch(erro => toast.error(erro))
     },
     cadastrar() {
-      this.$router.push('/form-categoria')  // redireciona para o formulário
+      this.$router.push('/formulario/categoria')  // redireciona para o formulário
     },
     apagar(id, nome) {
       if (window.confirm('Deseja excluir a categoria ' + nome + '?')) {
-        axios.delete('http://localhost:8080/apis/categoria/' + id)
+        axios.delete('http://localhost:8080/apis/categoria/' + id,{
+                headers: {
+                    Authorization: JSON.parse(localStorage.getItem("usuario")).token
+                }
+            })
           .then(() => {
             this.carregarDados()
-            alert('Categoria excluída com sucesso!')
+            toast.success('Categoria excluída com sucesso!');
           })
-          .catch(error => alert(error))
+          .catch(erro => toast.error(erro))
       }
     },
     alterar(id) {
-      axios.get('http://localhost:8080/apis/categoria/' + id)
+      axios.get("http://localhost:8080/apis/categoria/" + id,{
+                headers: {
+                    Authorization: JSON.parse(localStorage.getItem("usuario")).token
+                }
+            })
         .then(response => {
           localStorage.setItem('categoriaParaEditar', JSON.stringify(response.data))
-          this.$router.push('/form-categoria')  // redireciona para o formulário
+          this.$router.push('/formulario/categoria')  // redireciona para o formulário
         })
-        .catch(erro => alert(erro))
+        .catch(erro => toast.error(erro))
     },
     ordenarNome() {
       if (this.ordem) {

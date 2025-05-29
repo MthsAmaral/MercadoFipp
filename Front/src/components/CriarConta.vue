@@ -41,6 +41,7 @@
 
 <script>
 import axios from "axios";
+import { toast } from 'vue3-toastify';
 
 export default {
     name: "CriarConta",
@@ -67,8 +68,8 @@ export default {
                     .then(response => {
                         console.log(response);
                         if (response) {
-                            alert("Nome de usuário já cadastrado");
                             this.resetarForm();
+                            toast.warn("Nome de usuário já cadastrado!");
                         }
                         else {
                             this.cadastrar();
@@ -78,7 +79,7 @@ export default {
                         console.log(erro);
                     });
             } else
-                alert("repita a mesma senha nos campos!");
+                toast.warn("repita a mesma senha nos campos!");
         },
         cadastrar() {
             const url = "http://localhost:8080/apis/usuario"
@@ -91,11 +92,13 @@ export default {
                 .then(resposta => {
                     console.log(resposta);
                     this.$router.push("/login");
+                    toast.success("Usuário cadastrado");
                 })
                 .catch(erro => {
                     console.log(erro);
-                    alert("Erro ao cadastrar!");
                     this.resetarFormulario();
+                    toast.error("Erro ao cadastrar!");
+
                 });
         }
     },

@@ -1,44 +1,24 @@
-//falta chamar os outros componentes e rotas 
-import { createApp } from 'vue'
-import { createRouter, createWebHistory } from 'vue-router'
 
-import Home from './components/Home.vue'
+import {createApp} from "vue";
+import App from "./App.vue";
+import router from "./components/routes/index.js";
 
-import FormCategoria from './components/Formularios/FormCategoria.vue'
-import FormUsuario from './components/Formularios/FormUsuario.vue'
-import FormAnuncio from './components/Formularios/FormAnuncio.vue'
+import 'vue3-toastify/dist/index.css';
+import Vue3Toastify from 'vue3-toastify';
 
-import GerenCategorias from './components/Gerenciar/GerenCategoria.vue'
-import GerenUsuarios from './components/Gerenciar/GerenUsuario.vue'
-import GerenAnuncios from './components/Gerenciar/GerenAnuncio.vue'
-
-import App from './App.vue'
-import Login from './components/Login.vue'
-import CriarConta from './components/CriarConta.vue'
-//import para todos os componentes
+const app = createApp(App);
 
 
-const router = createRouter({
-        history: createWebHistory(),
-        routes: [
-            { path: '/home', component: Home, props: true}, //tera a lista de anuncios
-
-            { path: '/form-categoria', component: FormCategoria, props: true},
-            { path: '/form-usuario', component: FormUsuario, props: true },
-            { path: '/form-anuncio', component: FormAnuncio, props: true },
-
-            { path: '/login', component: Login, props:true},
-            { path: '/criar-conta', component: CriarConta, props:true},
-
-            { path: '/geren-categorias', component: GerenCategorias, props: true},
-            { path: '/geren-usuarios', component: GerenUsuarios, props: true },
-            { path: '/geren-anuncios', component: GerenAnuncios, props: true }
-
-            
-            
-        ]
+app.use(Vue3Toastify, {
+  autoClose: 3000,
+  position: "top-right"
 });
 
-const app = createApp(App)
-app.use(router)
-app.mount('#app')
+app.use(router);
+app.mount('#app');
+
+
+
+
+
+

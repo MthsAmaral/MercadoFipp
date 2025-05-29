@@ -8,7 +8,7 @@
                     <th style="cursor: pointer" @click="ordenarNome()">Nome &#x25B2;</th>
                     <th>Nivel</th>
                     <th>Senha</th>
-                    <th colspan="2">Ações</th>
+                    <th colspan="1">Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -17,11 +17,11 @@
                     <td>{{ usr.nome }}</td>
                     <td>{{ usr.nivel }}</td>
                     <td>{{ usr.senha }}</td>
-                    <td>
+                    <!--<td>
                         <button class="btn btn-sm btn-warning" @click="alterar(usr.id)">
                             <i class="bi bi-pencil-fill"></i> Alterar
                         </button>
-                    </td>
+                    </td>-->
                     <td>
                         <button class="btn btn-sm btn-danger" @click="this.apagar(usr.id)">
                             <i class="bi bi-trash-fill"></i> Apagar
@@ -39,7 +39,8 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
+import { toast } from 'vue3-toastify';
 
 export default {
     name: 'GerenUsuarios',
@@ -51,30 +52,49 @@ export default {
     },
     methods: {
         carregarDados() {
-            axios.get('http://localhost:8080/apis/usuario')
+            axios.get('http://localhost:8080/apis/usuario',{
+                headers: {
+                    Authorization: JSON.parse(localStorage.getItem("usuario")).token
+                }
+            })
                 .then(response => this.usuarios = response.data)
-                .catch(erro => alert(erro))
+                .catch(erro => toast.error(erro))
         },
         cadastrar() {
-            this.$router.push('/form-usuario')  // redireciona para o formulário
+            this.$router.push('/formulario/usuario')  // redireciona para o formulário
         },
         apagar(id, nome) {
             if (window.confirm('Deseja excluir o usuario ' + nome + '?')) {
-                axios.delete('http://localhost:8080/apis/usuario/' + id)
+                axios.delete('http://localhost:8080/apis/usuario/' + id,{
+                headers: {
+                    Authorization: JSON.parse(localStorage.getItem("usuario")).token
+                }
+            })
                     .then(() => {
                         this.carregarDados()
-                        alert('Usuario excluído com sucesso!')
+                        toast.success("Usuario excluído com sucesso!");
                     })
-                    .catch(error => alert(error))
+                    .catch(erro => {
+                        console.log(erro);
+                        let er = erro + "";
+                        if (er.endsWith("400"))
+                            toast.error("Erro ao remover usuário! O usuário possui anúncios ativos!");
+                        else
+                            toast.error("Erro ao remover usuário!");
+                    })
             }
         },
         alterar(id) {
-            axios.get('http://localhost:8080/apis/usuario/' + id)
+            axios.get('http://localhost:8080/apis/usuario/' + id,{
+                headers: {
+                    Authorization: JSON.parse(localStorage.getItem("usuario")).token
+                }
+            })
                 .then(response => {
                     localStorage.setItem('usuarioParaEditar', JSON.stringify(response.data))
-                    this.$router.push('/form-usuario')  // redireciona para o formulário
+                    this.$router.push('/formulario/usuario')  // redireciona para o formulário
                 })
-                .catch(erro => alert(erro))
+                .catch(erro => toast.error(erro))
         },
         ordenarNome() {
             if (this.ordem) {

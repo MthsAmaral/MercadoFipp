@@ -10,8 +10,14 @@
             </div>
 
             <div class="mb-3">
-                <label for="name" class="form-label">Senha</label>
-                <input type="password" maxlength="10" id="name" v-model="senha" class="form-control" required />
+                <label for="senha" class="form-label">Senha</label>
+                <div class="input-group">
+                    <input :type="mostrarSenha ? 'text' : 'password'" class="form-control" id="senha" maxlength="10" v-model="senha"
+                        required>
+                    <button class="btn btn-outline-secondary" type="button" @click="mostrarSenha = !mostrarSenha">
+                        {{ mostrarSenha ? 'Ocultar' : 'Mostrar' }}
+                    </button>
+                </div>
             </div>
 
             <button type="submit" class="btn btn-primary">
@@ -26,13 +32,15 @@
 
 <script>
 import axios from "axios";
+import { toast } from 'vue3-toastify';
 
 export default {
     name: 'Login',
     data() {
         return {
             nome: "",
-            senha: ""
+            senha: "",
+            mostrarSenha: false,
         }
     },
     methods: {
@@ -45,9 +53,11 @@ export default {
                 .then(resposta => {
                     console.log(resposta);
                     localStorage.setItem("usuario", JSON.stringify(resposta.data));
+                    toast.success("Login realizado!");
                     this.$router.push("/home");
                 })
                 .catch(erro => {
+                    toast.error("Não foi possível logar!");
                     console.log(erro);
                 });
         }

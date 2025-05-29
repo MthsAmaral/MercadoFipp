@@ -2,7 +2,7 @@
   <div class="container mt-4">
     <h1 class="mb-4">Cadastro de Categoria</h1>
     <form @submit.prevent="this.gravar" class="card p-4 shadow-sm">
-      
+
       <!-- Campo Id oculto -->
       <input type="hidden" v-model="id" />
 
@@ -19,7 +19,8 @@
 </template>
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
+import { toast } from 'vue3-toastify';
 
 export default {
   name: 'FormCategoria',
@@ -39,20 +40,31 @@ export default {
       };
       if (!this.modoEdicao) {
 
-        axios.post(url, data)
+        axios.post(url, data, {
+          headers: {
+            Authorization: JSON.parse(localStorage.getItem("usuario")).token
+          }
+        })
           .then(() => {
-            alert('Categoria gravada com sucesso!');
-            this.$router.push('/geren-categorias');//redireciona para pagina gerenciar
+            this.$router.push('/adm/categorias');//redireciona para pagina gerenciar
+            toast.success('Categoria gravada com sucesso!');
           })
           .catch(error => {
-            alert('Erro ao salvar: ' + error)
+            toast.error('Erro ao salvar: ' + error);
           })
       } else {//atualizar
-        axios.put(url, data)
+        axios.put(url, data, {
+          headers: {
+            Authorization: JSON.parse(localStorage.getItem("usuario")).token
+          }
+        })
           .then(() => {
-            alert('Categoria alterada com sucesso!')
             this.modoEdicao = false
-            this.$router.push('/geren-categorias');
+            this.$router.push('/adm/categorias');
+            toast.success('Categoria alterada com sucesso!');
+          })
+          .catch(error => {
+            toast.error('Erro ao alterar: ' + error);
           })
       }
 
