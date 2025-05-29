@@ -12,7 +12,8 @@ import GerenAnuncios from '@/components/Gerenciar/GerenAnuncios.vue';
 
 import Anuncios from '@/components/Anuncios.vue';
 import DetalheAnuncio from '@/components/DetalheAnuncio.vue';
-//import Chat from '@components/Chat.vue';
+import CadPergunta from '@/components/CadPergunta.vue';
+import CadResposta from '@/components/CadResposta.vue';
 
 
 import Login from '@/components/Login.vue';
@@ -72,7 +73,7 @@ const routes = [
             requiresAuth: true,
             requiresAdmin: false
         }
-    },/*
+    },
     {
         path: "/perguntar/:id",
         component: CadPergunta,
@@ -90,7 +91,7 @@ const routes = [
             requiresAuth: true,
             requiresAdmin: false
         }
-    },*/
+    },
     {
         path: "/formulario/anuncio",
         component: FormAnuncio,

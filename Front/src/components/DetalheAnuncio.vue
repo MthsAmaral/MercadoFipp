@@ -86,12 +86,12 @@
 <script>
 import { toast } from 'vue3-toastify';
 import axios from "axios";
-import Chat from './Chat.vue'
+import Perguntas from './Perguntas.vue'
 
 export default {
   name: "DetalheAnuncio",
   components: {
-    Chat
+    Perguntas
   },
   data() {
     return {
