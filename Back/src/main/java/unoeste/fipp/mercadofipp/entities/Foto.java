@@ -12,7 +12,7 @@ public class Foto {
     private Long id;
 
     @Column(name = "fot_file")
-    private String foto;
+    private byte[] foto;
 
     @ManyToOne
     @JoinColumn(name="anu_id")
@@ -21,10 +21,10 @@ public class Foto {
 
     //construtores
     public Foto() {
-        this(0L,"",null);
+        this(0L,null,null);
     }
 
-    public Foto(Long id, String foto, Anuncio anuncio) {
+    public Foto(Long id, byte[] foto, Anuncio anuncio) {
         this.id = id;
         this.foto = foto;
         this.anuncio = anuncio;
@@ -40,11 +40,11 @@ public class Foto {
         this.id = id;
     }
 
-    public String getFoto() {
+    public byte[] getFoto() {
         return foto;
     }
 
-    public void setFoto(String foto) {
+    public void setFoto(byte[] foto) {
         this.foto = foto;
     }
 }

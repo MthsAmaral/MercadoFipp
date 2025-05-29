@@ -18,7 +18,7 @@ public class AccessFilter implements Filter{
         String method = req.getMethod();
         String path = req.getRequestURI();
 
-        if (method.equals("POST") && path.contains("/apis/usuario") || method.equals("GET") && path.contains("/apis/usuario/get-nome/")) {
+        if (method.equals("POST") && path.contains("/apis/usuario") || method.equals("GET") && path.contains("/apis/usuario/nome/")) {
             // Permitir acesso público a POST /apis/usuario (cadastro de usuário)
             chain.doFilter(request, response);
         } else if (method.equals("GET") && path.startsWith("/apis/anuncio")) {
@@ -34,10 +34,6 @@ public class AccessFilter implements Filter{
         } else {
             Claims claims = JWTTokenProvider.getAllClaimsFromToken(token);
             int nivel = Integer.parseInt(claims.get("nivel").toString());
-
-            // Níveis do sistema:
-            // 1 = adm
-            // 2 = usuário comum (acessa poucos conteúdos e não consegue realizar exclusões)
 
 
             // TRATAR A CATEGORIA
@@ -71,7 +67,7 @@ public class AccessFilter implements Filter{
                     }
                 } else if (method.equals("DELETE")) {
                     // só adm pode deletar usuário
-                    if (nivel == 1) {
+                    if (nivel == 0) {
                         chain.doFilter(request, response);
                     } else {
                         forbidden(res);
@@ -94,7 +90,7 @@ public class AccessFilter implements Filter{
                 // GET público para get-anuncios liberado acima
                 if (method.equals("GET")) {
                     // GET id, GET por usuário
-                    if (path.matches("/apis/anuncio/get-por-usuario/\\d+") || path.matches("/apis/anuncio/\\d+")) {
+                    if (path.matches("/apis/anuncio/usuario/\\d+") || path.matches("/apis/anuncio/\\d+")) {
                         if (nivel == 1 || nivel == 2) {
                             chain.doFilter(request, response);
                             return;

@@ -3,55 +3,91 @@ package unoeste.fipp.mercadofipp.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import unoeste.fipp.mercadofipp.entities.Anuncio;
 import unoeste.fipp.mercadofipp.entities.Foto;
 import unoeste.fipp.mercadofipp.entities.Pergunta;
 import unoeste.fipp.mercadofipp.repositories.AnuncioRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class AnuncioService {
 
     @Autowired
-    private AnuncioRepository anuncioRepository;
+    AnuncioRepository anuncioRepository;
 
-
-    public List<Anuncio> getAll(){
+    public List<Anuncio> getAll() {
         return anuncioRepository.findAll();
     }
 
-    public Anuncio add(Anuncio anuncio) {
+    public Anuncio getById(long id) {
+        return anuncioRepository.findById(id).orElse(null);
+    }
+
+    public List<Anuncio> getByUser(long id) {
+        List<Anuncio> anuncios = anuncioRepository.findAll();
+        List<Anuncio> anunciosByUser = new ArrayList<>();
+        for (Anuncio anuncio : anuncios)
+            if (anuncio.getUsuario().getId() == id)
+                anunciosByUser.add(anuncio);
+        return anunciosByUser;
+    }
+
+    public List<Anuncio> getByFilter(String filtro) {
+        return anuncioRepository.findByFilter(filtro);
+    }
+
+    public Anuncio save(Anuncio anuncio, MultipartFile[] fotos) {
         Anuncio novoAnuncio = anuncioRepository.save(anuncio);
-
-        List<Foto> fotos = anuncio.getFotos();
-        if (fotos != null) {
-            for (Foto foto : fotos) {
-                anuncioRepository.addFoto(foto.getFoto(), novoAnuncio.getId());
-            }
-        }
-
+        if (novoAnuncio != null)
+            addFoto(fotos, novoAnuncio.getId());
         return novoAnuncio;
     }
 
-    public boolean addPergunta(Long id_anuncio, String texto){
+    public boolean addFoto(MultipartFile[] fotos, long id_anuncio) {
         try {
-            anuncioRepository.addPergunta(texto,id_anuncio);
+            for (MultipartFile foto : fotos) {
+                byte[] bytes = foto.getBytes();
+                anuncioRepository.addFoto(bytes, id_anuncio);
+            }
             return true;
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
 
-    public boolean addResposta(Long id_pergunta, String resp){
-        try{
-            anuncioRepository.updResposta(resp,id_pergunta);
+    public boolean addPergunta(long id_anuncio, String texto) {
+        try {
+            anuncioRepository.addPergunta(texto, id_anuncio);
             return true;
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
+
+    public boolean addResposta(long id_pergunta, String texto) {
+        try {
+            anuncioRepository.addResposta(texto, id_pergunta);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean delete(long id) {
+        Anuncio anuncio = anuncioRepository.findById(id).orElse(null);
+        try {
+            anuncioRepository.delFoto(anuncio.getId());
+            anuncioRepository.delPergunta(anuncio.getId());
+            anuncioRepository.delete(anuncio);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+
 
 }

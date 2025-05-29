@@ -27,11 +27,11 @@ public class Anuncio {
     private double preco;
 
     @ManyToOne
-    @JoinColumn(name = "cat_id")
+    @JoinColumn(name = "cat_id", nullable = false)
     private Categoria categoria;
 
     @ManyToOne
-    @JoinColumn(name = "usr_id")
+    @JoinColumn(name = "usr_id", nullable = false)
     private Usuario usuario;
 
     @OneToMany(mappedBy = "anuncio")

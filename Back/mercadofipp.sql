@@ -118,7 +118,7 @@ ALTER SEQUENCE public.categoria_cat_id_seq OWNED BY public.categoria.cat_id;
 
 CREATE TABLE public.foto_anuncio (
     fot_id integer NOT NULL,
-    fot_file character varying(20),
+    fot_file bytea,
     anu_id integer
 );
 

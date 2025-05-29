@@ -7,17 +7,55 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import unoeste.fipp.mercadofipp.entities.Anuncio;
 
+import java.util.List;
+
 public interface AnuncioRepository extends JpaRepository<Anuncio,Long> {
     @Modifying
     @Transactional
-    @Query(value = "INSERT INTO pergunta_anuncio (per_text,anu_id) VALUES (:texto, :id_anuncio)",nativeQuery = true)
-    public void addPergunta(@Param("texto") String texto,@Param("id_anuncio") Long id_anuncio);
+    @Query(value = "INSERT INTO pergunta_anuncio (per_text, anu_id) VALUES (:texto, :id_anuncio)", nativeQuery = true)
+    public void addPergunta(
+            @Param("texto") String texto,
+            @Param("id_anuncio") Long id_anuncio
+    );
 
-    @Query(value = "UPDATE pergunta_anuncio SET per_resp = :resp WHERE per_id = :id_pergunta", nativeQuery = true)
-    public void updResposta(@Param("resposta") String resposta, @Param("id_pergunta") Long id_pergunta);
+    @Modifying
+    @Transactional
+    @Query(value = "UPDATE pergunta_anuncio SET per_resp = :resposta WHERE per_id = :id_pergunta", nativeQuery = true)
+    public void addResposta(
+            @Param("resposta") String resposta,
+            @Param("id_pergunta") Long id_pergunta
+    );
 
-    @Query(value = "INSERT INTO foto_anuncio (fot_file, anu_id) VALUES (:foto, :idAnuncio)", nativeQuery = true)
-    void addFoto(@Param("foto") String foto, @Param("idAnuncio") Long idAnuncio);
+    @Modifying
+    @Transactional
+    @Query(value = "INSERT INTO foto_anuncio (fot_file, anu_id) VALUES (:foto, :id_anuncio)", nativeQuery = true)
+    public void addFoto(
+            @Param("foto") byte[] foto,
+            @Param("id_anuncio") Long id_anuncio
+    );
+
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM foto_anuncio WHERE anu_id = :id_anuncio", nativeQuery = true)
+    public void delFoto(
+            @Param("id_anuncio") Long id_anuncio
+    );
+
+    @Modifying
+    @Transactional
+    @Query(value = "DELETE FROM pergunta_anuncio WHERE anu_id = :id_anuncio", nativeQuery = true)
+    public void delPergunta(
+            @Param("id_anuncio") Long id_anuncio
+    );
+
+    @Query(value = "SELECT a.* FROM anuncio a " +
+            "JOIN categoria c ON a.cat_id = c.cat_id " +
+            "WHERE a.anu_title ILIKE :filtro " +
+            "OR CAST(a.anu_date AS TEXT) ILIKE :filtro " +
+            "OR a.anu_desc ILIKE :filtro " +
+            "OR CAST(a.anu_price AS TEXT) ILIKE :filtro " +
+            "OR c.cat_name ILIKE :filtro", nativeQuery = true)
+    List<Anuncio> findByFilter(@Param("filtro") String filtro);
 }
 
 

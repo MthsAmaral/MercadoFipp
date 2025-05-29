@@ -12,19 +12,18 @@ import java.util.List;
 public class CategoriaService {
     @Autowired
     private CategoriaRepository categoriaRepository;
-    //inserir
-    public List<Categoria> getCategoria(){
+    //retorna todas
+    public List<Categoria> getAll(){
           return categoriaRepository.findAll();
     }
     //getID
     public Categoria getById(Long id){
         return categoriaRepository.findById(id).orElse(null);
     }
-    //alterar
+    //alterar e gravar
     public Categoria save(Categoria categoria){
         try{
-            Categoria novaCategoria = categoriaRepository.save(categoria);
-            return novaCategoria;
+            return categoriaRepository.save(categoria);
         }catch(Exception e) {
             return null;
         }
