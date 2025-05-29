@@ -119,6 +119,7 @@ ALTER SEQUENCE public.categoria_cat_id_seq OWNED BY public.categoria.cat_id;
 CREATE TABLE public.foto_anuncio (
     fot_id integer NOT NULL,
     fot_file bytea,
+    fot_ext character varying(10),
     anu_id integer
 );
 
@@ -315,8 +316,8 @@ INSERT INTO public.pergunta_anuncio VALUES (2, 'Reserva ela para mim.', 1, 'Feit
 -- Data for Name: usuario; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.usuario VALUES (1, 'adm', 'adm123', '1');
-INSERT INTO public.usuario VALUES (2, 'jao', 'jao123', '2');
+INSERT INTO public.usuario VALUES (1, 'adm', 'adm123', '0');
+INSERT INTO public.usuario VALUES (2, 'jao', 'jao123', '1');
 
 
 --
@@ -460,4 +461,3 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 --
 -- PostgreSQL database dump complete
 --
-

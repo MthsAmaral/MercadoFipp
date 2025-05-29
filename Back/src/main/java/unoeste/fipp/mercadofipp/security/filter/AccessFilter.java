@@ -67,7 +67,7 @@ public class AccessFilter implements Filter{
                     }
                 } else if (method.equals("DELETE")) {
                     // só adm pode deletar usuário
-                    if (nivel == 0) {
+                    if (nivel == 1) {
                         chain.doFilter(request, response);
                     } else {
                         forbidden(res);
