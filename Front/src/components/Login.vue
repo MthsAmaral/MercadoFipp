@@ -1,4 +1,3 @@
-<!--tem que terminar esta com erro corrigir a logica-->
 <template>
     <div class="container mt-4">
         <h1 class="mb-4">Login Usuário</h1>
@@ -71,472 +70,90 @@ export default {
 </script>
 
 <style>
-/*
-* {
-
-    margin: 0;
-
-    padding: 0;
-
-    box-sizing: border-box;
-
-}
 
 body {
-
-    font-family: 'VT323', 'Share Tech Mono', monospace;
-
-    background-color: #0a0a0a; 
-
-    color: #00ff00; 
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
+    background: radial-gradient(ellipse at center, #1a2a30 0%, #0c1c1e 100%);
+    color: #cde4e5;
+    font-family: 'Orbitron', sans-serif;
     min-height: 100vh;
-
-    overflow: hidden; 
-
-    background-image: url('https://media.giphy.com/media/AOSwwqVjNZlDO/giphy.gif'); 
-
-    background-size: cover;
-
-    background-position: center;
-
-    background-repeat: no-repeat;
-
-    position: relative; 
-
-}
-
-#background-overlay {
-
-    position: absolute;
-
-    top: 0;
-
-    left: 0;
-
-    width: 100%;
-
-    height: 100%;
-
-    background-color: rgba(0, 0, 0, 0.7); 
-
-    z-index: 0;
-
-}
-
-.terminal-window {
-
-    width: 90%;
-
-    max-width: 650px;
-
-    background-color: rgba(10, 25, 10, 0.85); 
-
-    border: 2px solid #00ff00;
-
-    box-shadow: 0 0 25px rgba(0, 255, 0, 0.5), inset 0 0 15px rgba(0, 255, 0, 0.3);
-
-    border-radius: 5px;
-
-    overflow: hidden;
-
-    position: relative; 
-
-    z-index: 1;
-
-    animation: fadeInTerminal 1s ease-out;
-
-}
-
-@keyframes fadeInTerminal {
-
-    from { opacity: 0; transform: translateY(-20px); }
-
-    to { opacity: 1; transform: translateY(0); }
-
-}
-
-.terminal-header {
-
-    background-color: #003300; 
-
-    padding: 8px 12px;
-
+    margin: 0;
     display: flex;
-
-    justify-content: space-between;
-
+    justify-content: center;
     align-items: center;
-
-    border-bottom: 1px solid #00ff00;
-
-    color: #ffffff;
-
-    font-size: 1.1em;
-
-    text-shadow: 0 0 5px #00ff00;
-
 }
 
-.terminal-title {
-
-    letter-spacing: 2px;
-
+.container {
+    max-width: 500px;
 }
 
-.terminal-controls span {
-
-    display: inline-block;
-
-    width: 12px;
-
-    height: 12px;
-
-    margin-left: 5px;
-
-    border-radius: 50%;
-
-    cursor: pointer;
-
+.card {
+    background: rgba(15, 32, 39, 0.85);
+    border: 1px solid #00ffc3;
+    border-radius: 12px;
+    box-shadow: 0 0 15px #00ffc36e;
+    backdrop-filter: blur(6px);
 }
 
-.control-btn.minimize { background-color: #ffbd2e; border: 1px solid #e1a11a;}
-
-.control-btn.maximize { background-color: #27c93f; border: 1px solid #1aab2a;}
-
-.control-btn.close { background-color: #ff5f57; border: 1px solid #e2453c;}
-
-.terminal-body {
-
-    padding: 20px;
-
-    min-height: 300px; 
-
-}
-
-#hacker-typer-output {
-
-    background-color: rgba(0, 0, 0, 0.5);
-
-    padding: 10px;
-
-    margin-bottom: 20px;
-
-    border: 1px dashed #00ff00;
-
-    height: 80px;
-
-    overflow-y: auto; 
-
-    font-size: 1.2em;
-
-    line-height: 1.4;
-
-    white-space: pre-wrap; 
-    word-wrap: break-word; 
-
-    text-shadow: 0 0 3px #00ff00;
-
-}
-
-.prompt {
-
-    color: #00cc00; 
-
-}
-
-
-.cursor {
-
-    display: inline-block;
-
-    background-color: #00ff00;
-
-    width: 10px;
-
-    animation: blink 1s step-end infinite;
-
-    margin-left: 3px;
-
-}
-
-@keyframes blink {
-
-    from, to { background-color: transparent; }
-
-    50% { background-color: #00ff00; }
-
-}
-
-.form-toggle {
-
-    margin-bottom: 20px;
-
+h1 {
     text-align: center;
-
-}
-
-.form-toggle button {
-
-    background: none;
-
-    border: 1px solid #00ff00;
-
-    color: #00ff00;
-
-    padding: 8px 15px;
-
-    margin: 0 5px;
-
-    cursor: pointer;
-
-    font-family: inherit;
-
-    font-size: 1em;
-
-    transition: all 0.3s ease;
-
-    text-transform: uppercase;
-
-}
-
-.form-toggle button.active,
-
-.form-toggle button:hover {
-
-    background-color: #00ff00;
-
-    color: #0a0a0a;
-
-    box-shadow: 0 0 10px #00ff00;
-
-}
-
-form {
-
-    display: none; 
-
-    flex-direction: column;
-
-    gap: 15px;
-
-    animation: formFadeIn 0.5s ease;
-
-}
-
-form.active-form {
-
-    display: flex; 
-
-}
-
-@keyframes formFadeIn {
-
-     from { opacity: 0; }
-
-     to { opacity: 1; }
-
-}
-
-form h2 {
-
-    text-align: center;
-
-    margin-bottom: 10px;
-
+    font-weight: 700;
     color: #ffffff;
-
-    text-shadow: 0 0 8px #00ff00;
-
-    letter-spacing: 1px;
-
+    text-shadow: 0 0 8px #00ffc3;
+    font-size: 1.8rem;
 }
 
-.input-group {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 5px;
-
+.form-label {
+    color: #cde4e5;
+    font-size: 0.95rem;
 }
 
-label {
-
-    font-size: 1.1em;
-
-    color: #00ff00;
-
-    text-shadow: 0 0 3px #00ff00;
-
+input.form-control {
+    background-color: #0d1b1e;
+    border: 1px solid #00ffc3;
+    color: #cde4e5;
+    box-shadow: inset 0 0 4px #00ffc3;
+    transition: all 0.3s;
 }
 
-input[type="text"],
-
-input[type="password"],
-
-input[type="email"] {
-
-    background-color: rgba(0, 0, 0, 0.7);
-
-    border: 1px solid #00cc00;
-
-    color: #00ff00;
-
-    padding: 10px;
-
-    font-family: inherit;
-
-    font-size: 1.1em;
-
+input.form-control:focus {
+    background-color: #101f22;
     outline: none;
-
-    caret-color: #00ff00; 
-
-    transition: border-color 0.3s, box-shadow 0.3s;
-
+    box-shadow: 0 0 6px #00ffc3;
 }
 
-input[type="text"]::placeholder,
-
-input[type="password"]::placeholder,
-
-input[type="email"]::placeholder {
-
-    color: #009900; 
-
-    opacity: 0.7;
-
+.input-group .btn {
+    background-color: transparent;
+    color: #00ffc3;
+    border-color: #00ffc3;
+    transition: all 0.3s ease;
 }
 
-input[type="text"]:focus,
-
-input[type="password"]:focus,
-
-input[type="email"]:focus {
-
-    border-color: #00ff00;
-
-    box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
-
+.input-group .btn:hover {
+    background-color: #00ffc3;
+    color: #0c1c1e;
 }
 
-form button[type="submit"] {
-
-    background-color: #00ff00;
-
-    color: #0a0a0a;
-
+.btn-primary {
+    background-color: #00ffc3;
     border: none;
-
-    padding: 12px;
-
-    font-family: inherit;
-
-    font-size: 1.2em;
-
-    cursor: pointer;
-
-    transition: background-color 0.3s, box-shadow 0.3s;
-
-    margin-top: 10px;
-
-    text-transform: uppercase;
-
+    color: #0c1c1e;
     font-weight: bold;
-
-    letter-spacing: 1px;
-
-    text-shadow: none;
-
+    box-shadow: 0 0 10px #00ffc3;
 }
 
-form button[type="submit"]:hover {
-
-    background-color: #33ff33; 
-
-    box-shadow: 0 0 15px #00ff00;
-
+.btn-primary:hover {
+    background-color: #00d1a3;
 }
 
-.message {
-
-    min-height: 20px; 
-
-    margin-top: 10px;
-
-    text-align: center;
-
-    font-size: 1.1em;
-
-    font-weight: bold;
-
-    text-shadow: 0 0 5px currentColor; 
-
+.btn-secondary {
+    background-color: #142b30;
+    color: #00ffc3;
+    border: 1px solid #00ffc3;
+    transition: 0.3s ease;
 }
 
-.message.success {
-
-    color: #00ff00; 
-
+.btn-secondary:hover {
+    background-color: #00ffc3;
+    color: #0c1c1e;
 }
-
-.message.error {
-
-    color: #ff4444;
-
-}
-
-.message.processing {
-
-    color: #ffff00; 
-
-}
-
-@media (max-width: 600px) {
-
-    .terminal-window {
-
-        width: 95%;
-
-        margin-top: 20px;
-
-        margin-bottom: 20px;
-
-    }
-
-    .terminal-body {
-
-        padding: 15px;
-
-    }
-
-    #hacker-typer-output {
-
-        font-size: 1em;
-
-        height: 60px;
-
-    }
-
-    form h2 {
-
-        font-size: 1.2em;
-
-    }
-
-    label, input, form button[type="submit"] {
-
-        font-size: 1em;
-
-    }
-
-}*/
 </style>

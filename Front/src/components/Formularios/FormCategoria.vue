@@ -91,124 +91,68 @@ export default {
 </script>
 
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-/* Tipografia e base 
-* {
-  font-family: 'VT323', 'Share Tech Mono', monospace;
-  box-sizing: border-box;
-}
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap');
 
 body {
-  font-family: 'VT323', 'Share Tech Mono', monospace;
-  background-color: #0a0a0a;
-  color: #00ff00;
-}*/
-
-/* Botão "Nova Categoria" 
-.nova-categoria-btn {
-  background-color: #00ff00;
-  color: #000;
-  font-family: 'VT323', 'Share Tech Mono', monospace;
-  font-size: 1.2em;
-  padding: 10px 25px;
-  border: 2px solid #00ff00;
-  border-radius: 5px;
-  cursor: pointer;
-  box-shadow: 0 0 10px #00ff00, inset 0 0 5px #00ff00;
-  transition: all 0.3s ease;
-  text-shadow: none;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin: 10px 0;
-}*/
-
-/* Hover 
-.nova-categoria-btn:hover {
-  background-color: #000;
-  color: #00ff00;
-  box-shadow: 0 0 20px #00ff00, inset 0 0 10px #00ff00;
-}*/
-
-/* Container onde o botão está 
-.botao-container {
-  display: flex;
-  justify-content: flex-end;
-  padding: 10px;
-}*/
-
-/* Ajuste da tabela estilo hacker 
-#customers {
-  font-family: 'VT323', monospace;
-  border-collapse: collapse;
-  width: 100%;
-  margin-top: 10px;
-}
-
-#customers th,
-#customers td {
-  border: 1px solid #00ff00;
-  padding: 12px;
-  color: #00ff00;
-  text-align: left;
-}
-
-#customers th {
-  background-color: #001a00;
-  text-shadow: 0 0 5px #00ff00;
-}
-
-#customers tr:nth-child(even) {
-  background-color: #001100;
-}
-
-#customers tr:hover {
-  background-color: #002200;
-}*/
-
-/* Container geral do formulário 
-.form-container {
-  border-radius: 8px;
-  background-color: rgba(0, 0, 0, 0.85);
+  background: radial-gradient(ellipse at center, #1a2a30 0%, #0c1c1e 100%);
+  font-family: 'Orbitron', sans-serif;
+  margin: 0;
   padding: 20px;
-  box-shadow: 0 0 10px #00ff00;
-  margin-top: 20px;
-}*/
+  min-height: 100vh;
+}
 
-/* Inputs estilo terminal 
-input[type="text"],
-select {
-  background-color: #000;
-  border: 1px solid #00ff00;
-  color: #00ff00;
-  padding: 10px;
-  border-radius: 4px;
-  font-family: inherit;
-  font-size: 1.1em;
-  box-shadow: inset 0 0 5px #00ff00;
+.container {
+  max-width: 500px;
+  margin: auto;
+  color: #cde4e5;
+}
+
+.card {
+  background: rgba(15, 32, 39, 0.85);
+  border: 1px solid #00ffc3;
+  border-radius: 12px;
+  box-shadow: 0 0 15px #00ffc36e;
+  backdrop-filter: blur(6px);
+}
+
+h1 {
+  text-align: center;
+  font-weight: 700;
+  color: #ffffff;
+  text-shadow: 0 0 8px #00ffc3;
+  font-size: 1.6rem;
+}
+
+.form-label {
+  color: #cde4e5;
+  font-weight: 500;
+}
+
+input.form-control {
+  background-color: #0d1b1e;
+  border: 1px solid #00ffc3;
+  color: #cde4e5;
+  box-shadow: inset 0 0 4px #00ffc3;
+  transition: all 0.3s ease;
+}
+
+input.form-control:focus {
+  background-color: #101f22;
+  box-shadow: 0 0 6px #00ffc3;
   outline: none;
-  width: 100%;
 }
 
-input[type="text"]:focus {
-  box-shadow: 0 0 10px #00ff00;
-}*/
-
-/* Botão submit do formulário 
-input[type="submit"] {
-  background-color: #00ff00;
-  color: #000;
-  padding: 12px 20px;
+.btn-primary {
+  background-color: #00ffc3;
   border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  color: #0c1c1e;
   font-weight: bold;
-  letter-spacing: 1px;
-  transition: background-color 0.3s, box-shadow 0.3s;
+  box-shadow: 0 0 10px #00ffc3;
+  transition: background-color 0.3s ease;
 }
 
-input[type="submit"]:hover {
-  background-color: #33ff33;
-  box-shadow: 0 0 10px #00ff00;
-}*/
+.btn-primary:hover {
+  background-color: #00d1a3;
+}
 </style>

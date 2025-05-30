@@ -62,9 +62,71 @@ export default {
 }
 </script>
 
-<style scoped>
+<style >
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap');
+
+.container {
+    background: radial-gradient(ellipse at center, #1a2a30 0%, #0c1c1e 100%);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 255, 195, 0.2);
+}
+
+h2 {
+    color: #00ffc3;
+    text-shadow: 0 0 8px #00ffc3;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+}
+
+.card {
+    background: rgba(15, 32, 39, 0.85);
+    border: 1px solid #00ffc3;
+    border-radius: 12px;
+    box-shadow: 0 0 15px #00ffc36e;
+    backdrop-filter: blur(6px);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 25px #00ffc3;
+}
+
+.card-img-top {
+    height: 200px;
+    width: 100%;
+    object-fit: cover;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+}
+
 .card-title {
-  font-size: 1.2rem;
-  font-weight: bold;
+    color: #ffffff;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 600;
+    text-shadow: 0 0 5px #00ffc3;
+}
+
+.card-text {
+    color: #cde4e5;
+    font-family: 'Orbitron', sans-serif;
+}
+
+.router-link {
+    text-decoration: none;
+    color: #cde4e5;
+    transition: color 0.3s ease;
+}
+
+.router-link:hover {
+    color: #00ffc3;
+}
+
+@media (max-width: 768px) {
+    .card-img-top {
+        height: 150px;
+    }
 }
 </style>

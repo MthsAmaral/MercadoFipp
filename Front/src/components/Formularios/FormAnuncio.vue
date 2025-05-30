@@ -150,3 +150,90 @@ export default {
 
 };
 </script>
+
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap');
+
+body {
+  background: radial-gradient(ellipse at center, #1a2a30 0%, #0c1c1e 100%);
+  font-family: 'Orbitron', sans-serif;
+  color: #cde4e5;
+  margin: 0;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.container {
+  /* Aumentando a largura máxima para 700px. Você pode ajustar esse valor */
+  max-width: 700px;
+  margin: auto;
+}
+
+.card {
+  background: rgba(15, 32, 39, 0.85);
+  border: 1px solid #00ffc3;
+  border-radius: 12px;
+  box-shadow: 0 0 15px #00ffc36e;
+  backdrop-filter: blur(6px);
+}
+
+h1 { /* Alterado de h2 para h1 para corresponder ao seu template */
+  color: #ffffff;
+  font-weight: 700;
+  text-shadow: 0 0 8px #00ffc3;
+}
+
+.form-label {
+  color: #cde4e5;
+  font-weight: 500;
+}
+
+input.form-control,
+select.form-select,
+textarea.form-control { /* Adicionado textarea aqui */
+  background-color: #0d1b1e;
+  border: 1px solid #00ffc3;
+  color: #cde4e5;
+  box-shadow: inset 0 0 4px #00ffc3;
+  transition: all 0.3s ease;
+}
+
+input.form-control:focus,
+select.form-select:focus,
+textarea.form-control:focus { /* Adicionado textarea aqui */
+  background-color: #101f22;
+  box-shadow: 0 0 6px #00ffc3;
+  outline: none;
+}
+
+.btn-primary {
+  background-color: #00ffc3;
+  border: none;
+  color: #0c1c1e;
+  font-weight: bold;
+  box-shadow: 0 0 10px #00ffc3;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #00d1a3;
+}
+
+.btn-secondary { /* Adicionado estilo para o botão secundário (Cancelar) */
+  background-color: #6c757d;
+  border: none;
+  color: #ffffff;
+  font-weight: bold;
+  box-shadow: 0 0 10px #6c757d;
+  transition: background-color 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+}
+
+/* Opcional: Se você quiser que o texto de ajuda (form-text) tenha a cor do tema */
+.form-text {
+  color: #a0c2c3; /* Um tom um pouco mais claro */
+}
+</style>
