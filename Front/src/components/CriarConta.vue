@@ -62,12 +62,12 @@ export default {
         },
         validar() {
             if (this.senha === this.confirmarSenha) {
-                const url = 'http://localhost:8080/apis/usuario/nome/' + this.nome;
+                const url = 'http://localhost:8080/apis/usuario/nome/' + encodeURIComponent(this.nome);
 
                 axios.get(url)
                     .then(response => {
                         console.log(response);
-                        if (response) {
+                        if (!response) {
                             this.resetarForm();
                             toast.warn("Nome de usuário já cadastrado!");
                         }
@@ -86,7 +86,7 @@ export default {
             const data = {
                 nome: this.nome,
                 senha: this.senha,
-                nivel: 1
+                nivel: 2
             }
             axios.post(url, data)
                 .then(resposta => {

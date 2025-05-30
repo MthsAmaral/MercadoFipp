@@ -12,12 +12,9 @@
           class="text-decoration-none text-dark"
         >
           <div class="card h-100">
-            <img 
-              :src="anuncio.foto" 
-              class="card-img-top" 
-              alt="Imagem do anúncio" 
-              style="height: 200px; object-fit: cover;"
-            >
+            <img :src="getImagem(anuncio)" class="card-img-top" alt="Imagem do anúncio"
+              style="height: 200px; object-fit: contain; background-color: #f8f9fa;">
+
             <div class="card-body">
               <h5 class="card-title">{{ anuncio.titulo }}</h5>
               <p class="card-text">R$ {{ parseFloat(anuncio.preco).toFixed(2) }}</p>
@@ -54,6 +51,14 @@ export default {
             toast.error("Erro ao buscar anúncios");
             console.error("Erro ao buscar anúncios:", erro);
         });
+    },
+    getImagem(anuncio) {
+      if (anuncio.fotos && anuncio.fotos.length > 0) {
+        // Monta a imagem base64 completa
+        return `data:image/${anuncio.fotos[0].extensao};base64,${anuncio.fotos[0].arquivo}`;
+      }
+      // Imagem padrão caso não tenha
+      return 'https://via.placeholder.com/400x200?text=Sem+Imagem';
     }
   },
   mounted() {

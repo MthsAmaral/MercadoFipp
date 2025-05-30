@@ -2,7 +2,7 @@
   <div class="container mt-5">
     <h2 class="mb-4 text-center">Cadastro de Usuário</h2>
 
-    <form @submit.prevent="gravar" class="card p-4 shadow-sm">
+    <form @submit.prevent="this.gravar" class="card p-4 shadow-sm">
 
       <!-- Campo Id oculto -->
       <input type="hidden" id="idusr" v-model="id" />
@@ -58,7 +58,7 @@ export default {
       nivel: '',
       senha: '',
       modoEdicao: false,
-      mostrarSenha: false,
+      mostrarSenha: false
     }
   },
   methods: {
@@ -77,11 +77,11 @@ export default {
           }
         })
           .then(() => {
+            this.$router.push('/login');
             toast.success('Usuário gravado com sucesso');
-            this.$router.push('/adm/usuarios');
           })
           .catch(error => {
-            toast.error('Erro ao salvar:', error);
+            toast.error('Erro ao cadastrar usuário:', error);
           });
       }
       else//atualizar

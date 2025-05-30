@@ -8,7 +8,7 @@
                     <th style="cursor: pointer" @click="ordenarNome()">Nome &#x25B2;</th>
                     <th>Nivel</th>
                     <th>Senha</th>
-                    <th colspan="1">Ações</th>
+                    <th colspan="2">Ações</th>
                 </tr>
             </thead>
             <tbody>
@@ -17,11 +17,11 @@
                     <td>{{ usr.nome }}</td>
                     <td>{{ usr.nivel }}</td>
                     <td>{{ usr.senha }}</td>
-                    <!--<td>
+                    <td>
                         <button class="btn btn-sm btn-warning" @click="alterar(usr.id)">
                             <i class="bi bi-pencil-fill"></i> Alterar
                         </button>
-                    </td>-->
+                    </td>
                     <td>
                         <button class="btn btn-sm btn-danger" @click="this.apagar(usr.id)">
                             <i class="bi bi-trash-fill"></i> Apagar

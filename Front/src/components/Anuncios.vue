@@ -42,7 +42,7 @@ export default {
       axios.get("http://localhost:8080/apis/anuncio")
         .then(response => {
           this.anuncios = response.data.reverse();
-          console.log(this.anuncios);
+          //console.log(this.anuncios);
         })
         .catch(erro => {
           toast.error("Erro ao buscar anúncios");
@@ -55,7 +55,7 @@ export default {
         return `data:image/${anuncio.fotos[0].extensao};base64,${anuncio.fotos[0].arquivo}`;
       }
       // Imagem padrão caso não tenha
-      //return 'https://via.placeholder.com/400x200?text=Sem+Imagem';
+      return 'https://via.placeholder.com/400x200?text=Sem+Imagem';
     }
   }
   ,
