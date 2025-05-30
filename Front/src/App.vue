@@ -13,18 +13,9 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         
         <ul v-if="usuario" class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <router-link class="nav-link" to="/anuncios">Listar Anúncios</router-link>
-          </li>
 
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Anuncio
-            </a>
-            <ul class="dropdown-menu">
-              <li><router-link class="dropdown-item" to="/anuncios/usuario/:idUsr">Meus Anuncios</router-link></li>
-              <li><router-link class="dropdown-item" to="/anuncios">Todos Anuncios</router-link></li>
-            </ul>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/Anuncios">Todos Anuncios</router-link>
           </li>
           <li class="nav-item">
             <router-link class="nav-link" to="/formulario/anuncio">Anunciar</router-link>
@@ -44,7 +35,7 @@
         
 
         <!-- Direita: login e usuário -->
-        <div class="d-flex align-items-center">
+        <div class="d-flex align-items-center ms-auto">
           <div v-if="usuario" class="text-white me-3">{{ usuario.nome }}</div>
 
           <router-link v-if="usuario" to="/home">

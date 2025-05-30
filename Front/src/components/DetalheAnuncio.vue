@@ -9,51 +9,43 @@
           <p class="text-secondary"><strong>Descrição:</strong></p>
           <p class="mb-1 text-dark">{{ anuncio.descricao }}.</p>
           <p class="mb-1 text-dark"><strong>Categoria:</strong> {{ anuncio.categoria.nome }}</p>
-          <p class="text-muted"><strong>Data da postagem:</strong> {{ anuncio.data }}</p>
+          <p class="text-muted"><strong>Data da postagem:</strong> {{ formatarData(anuncio.data) }}</p>
+
           <hr />
           <div class="d-flex flex-column align-items-center">
             <button class="btn btn-success w-75 mb-2">Comprar</button>
             <button class="btn btn-outline-primary w-75">Adicionar ao carrinho</button>
           </div>
           <p class="mt-3 text-secondary">
-            Vendido por
-            <router-link :to="`/anuncios/usuario/${anuncio.usuario.id}`" class="text-decoration-none text-dark fw-semibold">
-              {{ anuncio.usuario.nome }}
-            </router-link>
+            Vendido por {{ anuncio.usuario.nome }}
           </p>
         </div>
 
         <!-- Carrossel -->
-        <div v-if="anuncio.fotos.length === 0" class="col-md-6 d-flex align-items-center justify-content-center bg-white rounded shadow">
-          <img  class="img-fluid rounded" alt="Imagem Indisponível" />
+        <div v-if="anuncio.fotos.length === 0"
+          class="col-md-6 d-flex align-items-center justify-content-center bg-white rounded shadow">
+          <img class="img-fluid rounded" alt="Imagem Indisponível" />
         </div>
         <div v-else class="col-md-6 bg-white rounded shadow p-3">
           <div id="carouselExampleDark" class="carousel carousel-dark slide">
             <div class="carousel-indicators">
-              <button
-                v-for="(foto, index) in anuncio.fotos"
-                :key="foto.id"
-                :data-bs-target="'#carouselExampleDark'"
-                :data-bs-slide-to="index"
-                :class="{ active: index === 0 }"
-                :aria-label="'Slide ' + (index + 1)"
-              ></button>
+              <button v-for="(foto, index) in anuncio.fotos" :key="foto.id" :data-bs-target="'#carouselExampleDark'"
+                :data-bs-slide-to="index" :class="{ active: index === 0 }"
+                :aria-label="'Slide ' + (index + 1)"></button>
             </div>
             <div class="carousel-inner rounded">
-              <div
-                v-for="(foto, index) in anuncio.fotos"
-                :key="foto.id"
-                :class="{ 'carousel-item': true, active: index === 0 }"
-                data-bs-interval="10000"
-              >
+              <div v-for="(foto, index) in anuncio.fotos" :key="foto.id"
+                :class="{ 'carousel-item': true, active: index === 0 }" data-bs-interval="10000">
                 <img :src="foto.img64" class="d-block w-100 rounded" alt="Imagem" />
               </div>
             </div>
-            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark"
+              data-bs-slide="prev">
               <span class="carousel-control-prev-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Anterior</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark"
+              data-bs-slide="next">
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="visually-hidden">Próximo</span>
             </button>
@@ -107,13 +99,18 @@ export default {
         .get(url)
         .then((resposta) => {
           this.anuncio = resposta.data;
-          console.log(resposta.data);
+          //console.log(resposta.data);
           if (this.anuncio) document.title += ` - ${this.anuncio.titulo}`;
         })
         .catch((erro) => {
           console.log(erro);
           toast.error("Erro ao carregar anúncio!");
         });
+    },
+    formatarData(dataISO) {
+      if (!dataISO) return '';
+      const data = new Date(dataISO);
+      return data.toLocaleDateString('pt-BR');
     }
   },
   mounted() {
@@ -153,6 +150,7 @@ body {
     opacity: 0;
     transform: translateY(15px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -254,4 +252,3 @@ button.btn-secondary:hover {
   font-weight: 600;
 }
 </style>
-

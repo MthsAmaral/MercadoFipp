@@ -58,7 +58,7 @@ export default {
         return `data:image/${anuncio.fotos[0].extensao};base64,${anuncio.fotos[0].arquivo}`;
       }
       // Imagem padrão caso não tenha
-      return 'https://via.placeholder.com/400x200?text=Sem+Imagem';
+      //return 'https://via.placeholder.com/400x200?text=Sem+Imagem';
     }
   },
   mounted() {

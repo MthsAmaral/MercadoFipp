@@ -10,6 +10,7 @@ import GerenCategorias from '@/components/Gerenciar/GerenCategorias.vue';
 import GerenUsuarios from '@/components/Gerenciar/GerenUsuarios.vue';
 import GerenAnuncios from '@/components/Gerenciar/GerenAnuncios.vue';
 
+
 import Anuncios from '@/components/Anuncios.vue';
 import DetalheAnuncio from '@/components/DetalheAnuncio.vue';
 import CadPergunta from '@/components/CadPergunta.vue';
@@ -60,16 +61,6 @@ const routes = [
         component: Anuncios,
         meta: {
             title: "Todos os anúncios",
-            requiresAuth: true,
-            requiresAdmin: false
-        }
-    },
-    {
-        path: "/anuncios/usuario/:idUsr",
-        component: Anuncios,
-        props: true,
-        meta: {
-            title: "Todos os seus anúncios",
             requiresAuth: true,
             requiresAdmin: false
         }
