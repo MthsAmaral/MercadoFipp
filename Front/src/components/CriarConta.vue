@@ -177,6 +177,7 @@ input.form-control:focus {
   border-color: #00ffc3;
   box-shadow: 0 0 6px #00ffc3;
   outline: none;
+  color: #cde4e5;
 }
 
 input::placeholder {

@@ -7,8 +7,8 @@
           <h2 class="mb-3 text-primary fw-bold">{{ anuncio.titulo }}</h2>
           <h2 class="text-success mb-3">R$ {{ parseFloat(anuncio.preco).toFixed(2) }}</h2>
           <p class="text-secondary"><strong>Descrição:</strong></p>
-          <p class="mb-1 text-dark">{{ anuncio.descricao }}.</p>
-          <p class="mb-1 text-dark"><strong>Categoria:</strong> {{ anuncio.categoria.nome }}</p>
+          <p class="mb-1">{{ anuncio.descricao }}.</p>
+          <p class="mb-1"><strong>Categoria:</strong> {{ anuncio.categoria.nome }}</p>
           <p class="text-muted"><strong>Data da postagem:</strong> {{ anuncio.data }}</p>
           <hr />
           <div class="d-flex flex-column align-items-center">
@@ -17,7 +17,7 @@
           </div>
           <p class="mt-3 text-secondary">
             Vendido por
-            <router-link :to="`/anuncios/usuario/${anuncio.usuario.id}`" class="text-decoration-none text-dark fw-semibold">
+            <router-link :to="`/anuncios/usuario/${anuncio.usuario.id}`" class="text-decoration-none fw-semibold">
               {{ anuncio.usuario.nome }}
             </router-link>
           </p>

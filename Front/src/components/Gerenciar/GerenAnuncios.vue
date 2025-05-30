@@ -15,12 +15,12 @@
       </thead>
       <tbody>
         <tr v-for="anuncio in anuncios" :key="anuncio.id">
-          <td>{{ anuncio.id }}</td>
-          <td>{{ anuncio.titulo }}</td>
-          <td>R$ {{ parseFloat(anuncio.preco).toFixed(2) }}</td>
-          <td>{{ anuncio.data }}</td>
-          <td>{{ anuncio.categoria?.nome || 'Sem categoria' }}</td>
-          <td>
+          <td class="linha">{{ anuncio.id }}</td>
+          <td class="linha">{{ anuncio.titulo }}</td>
+          <td class="linha">R$ {{ parseFloat(anuncio.preco).toFixed(2) }}</td>
+          <td class="linha">{{ anuncio.data }}</td>
+          <td class="linha">{{ anuncio.categoria?.nome || 'Sem categoria' }}</td>
+          <td class="linha">
             <button class="btn btn-sm btn-danger" @click="apagar(anuncio.id, anuncio.titulo)">
               <i class="bi bi-trash-fill"></i> Apagar
             </button>
@@ -82,6 +82,10 @@ body {
   margin: 0;
   padding: 20px;
   min-height: 100vh;
+}
+
+.linha{
+  color: #cde4e5;
 }
 
 .container {

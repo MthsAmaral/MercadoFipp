@@ -3,7 +3,7 @@
     <h2 class="mb-4 text-center">Todos Anúncios</h2>
 
     <form class="d-flex mx-auto" role="search" style="max-width: 400px; width: 100%;">
-      <input class="form-control me-2" type="search" placeholder="Buscar por nome do produto" aria-label="Search">
+      <input class="form-control me-2 search-form" type="search" placeholder="Buscar por nome do produto" aria-label="Search">
       <button class="btn btn-outline-light" type="submit">Buscar</button>
     </form>
 
@@ -93,6 +93,7 @@ h2 {
   border-radius: 10px;
   background-color: rgba(0, 255, 195, 0.05);
   box-shadow: 0 0 12px #00ffc3a2;
+  color: #cde4e5;
 }
 
 form input {
