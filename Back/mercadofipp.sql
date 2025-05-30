@@ -306,8 +306,8 @@ INSERT INTO public.categoria VALUES (3, 'celulares');
 -- Data for Name: pergunta_anuncio; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.pergunta_anuncio VALUES (1, 'Faz desconto à vista?', 1, 'só se for no PIX');
-INSERT INTO public.pergunta_anuncio VALUES (2, 'Reserva ela para mim.', 1, 'Feito! Manda o PIX para 18-99987-1569');
+INSERT INTO public.pergunta_anuncio VALUES (1, 'Ainda está disponível?', 1, 'Sim');
+INSERT INTO public.pergunta_anuncio VALUES (2, 'Faz em quantas vezes no cartão?', 1, 'Depende da plataforma');
 
 
 --

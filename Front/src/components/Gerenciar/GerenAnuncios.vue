@@ -6,7 +6,6 @@
       <thead class="table-dark">
         <tr>
           <th>ID</th>
-          <th>Foto</th>
           <th>Título</th>
           <th>Preço</th>
           <th>Data</th>
@@ -17,16 +16,6 @@
       <tbody>
         <tr v-for="anuncio in anuncios" :key="anuncio.id">
           <td>{{ anuncio.id }}</td>
-          <td>
-            <img
-              v-if="anuncio.fotos && anuncio.fotos.length"
-              :src="`http://localhost:8080/imagens/${anuncio.fotos[0]}`"
-              alt="Foto do anúncio"
-              class="img-thumbnail"
-              style="width: 80px; height: 80px; object-fit: cover;"
-            />
-            <span v-else class="text-muted">Sem foto</span>
-          </td>
           <td>{{ anuncio.titulo }}</td>
           <td>R$ {{ parseFloat(anuncio.preco).toFixed(2) }}</td>
           <td>{{ anuncio.data }}</td>
