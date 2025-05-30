@@ -125,205 +125,79 @@ export default {
 </script>
 
 <style scoped>
-/* Tipografia e base 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap');
 
 body {
-  font-family: 'VT323', 'Share Tech Mono', monospace;
-  background-color: #0a0a0a;
-  color: #00ff00;
+  background: radial-gradient(ellipse at center, #1a2a30 0%, #0c1c1e 100%);
+  font-family: 'Orbitron', sans-serif;
+  color: #cde4e5;
+  margin: 0;
+  padding: 20px;
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow-x: hidden;
-  background-image: url('https://media.giphy.com/media/AOSwwqVjNZlDO/giphy.gif');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
-#app {
-  width: 100%;
-  padding: 20px;
-  z-index: 1;
-}
-
-#menu {
-  display: flex;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.7);
-  border: 2px solid #00ff00;
-  box-shadow: 0 0 15px #00ff00;
-  padding: 10px;
-  margin-bottom: 20px;
-}
-
-#menu > div {
-  margin: 0 10px;
-}
-
-#menu a {
-  display: inline-block;
-  padding: 10px 20px;
-  background-color: transparent;
-  border: 2px solid #00ff00;
-  color: #00ff00;
-  text-decoration: none;
-  font-size: 1.2em;
-  transition: all 0.3s ease;
-  border-radius: 5px;
-}
-
-#menu a.router-link-exact-active,
-#menu a:hover {
-  background-color: #00ff00;
-  color: #000;
-  box-shadow: 0 0 15px #00ff00;
-}
-
-.botao-container {
-  display: flex;
-  justify-content: flex-end;
-  padding: 10px;
-}
-
-.nova-categoria-btn {
-  background-color: #00ff00;
-  color: #000;
-  font-family: 'VT323', 'Share Tech Mono', monospace;
-  font-size: 1.2em;
-  padding: 10px 25px;
-  border: 2px solid #00ff00;
-  border-radius: 5px;
-  cursor: pointer;
-  box-shadow: 0 0 10px #00ff00, inset 0 0 5px #00ff00;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin: 10px 0;
-}
-
-.nova-categoria-btn:hover {
-  background-color: #000;
-  color: #00ff00;
-  box-shadow: 0 0 20px #00ff00, inset 0 0 10px #00ff00;
-}
-
-/* Container principal */
 .container {
-  background-color: rgba(0, 0, 0, 0.8);
-  border: 2px solid #00ff00;
-  box-shadow: 0 0 15px #00ff00;
-  border-radius: 5px;
-  padding: 20px;
-  margin: 20px;
-  width: 100%;
-  max-width: 1000px;
+  max-width: 500px;
+  margin: auto;
 }
 
-/* Estilo da tabela 
-#customers {
-  font-family: 'VT323', 'Share Tech Mono', monospace;
-  border-collapse: collapse;
-  width: 100%;
-  margin-top: 20px;
-  color: #00ff00;
+.card {
+  background: rgba(15, 32, 39, 0.85);
+  border: 1px solid #00ffc3;
+  border-radius: 12px;
+  box-shadow: 0 0 15px #00ffc36e;
+  backdrop-filter: blur(6px);
 }
 
-#customers td,
-#customers th {
-  border: 1px solid #00ff00;
-  padding: 12px;
+h2 {
+  color: #ffffff;
+  font-weight: 700;
+  text-shadow: 0 0 8px #00ffc3;
 }
 
-#customers tr:nth-child(even) {
-  background-color: rgba(0, 255, 0, 0.05);
+.form-label {
+  color: #cde4e5;
+  font-weight: 500;
 }
 
-#customers tr:hover {
-  background-color: rgba(0, 255, 0, 0.1);
-}
-
-#customers th {
-  background-color: #001a00;
-  color: #00ff00;
-  text-align: left;
-  text-shadow: 0 0 5px #00ff00;
-}
-
-/* Inputs e formulário 
-input[type="text"],
-input[type="email"],
-input[type="password"],
-select {
-  background-color: rgba(0, 0, 0, 0.7);
-  border: 1px solid #00ff00;
-  color: #00ff00;
-  padding: 10px;
-  font-family: inherit;
-  font-size: 1.1em;
-  width: 100%;
-  margin: 8px 0;
-  border-radius: 5px;
-  transition: box-shadow 0.3s ease, border-color 0.3s ease;
-  outline: none;
+input.form-control,
+select.form-select {
+  background-color: #0d1b1e;
+  border: 1px solid #00ffc3;
+  color: #cde4e5;
+  box-shadow: inset 0 0 4px #00ffc3;
+  transition: all 0.3s ease;
 }
 
 input:focus,
 select:focus {
-  border-color: #00ff00;
-  box-shadow: 0 0 10px #00ff00;
+  background-color: #101f22;
+  box-shadow: 0 0 6px #00ffc3;
+  outline: none;
 }
 
-input::placeholder {
-  color: #00cc00;
-  opacity: 0.7;
-}
-
-input[type="submit"] {
-  width: 100%;
-  background-color: #00ff00;
-  color: #000;
-  padding: 12px 20px;
-  margin: 10px 0;
+.btn-primary {
+  background-color: #00ffc3;
   border: none;
-  border-radius: 4px;
-  cursor: pointer;
+  color: #0c1c1e;
   font-weight: bold;
-  letter-spacing: 1px;
-  box-shadow: 0 0 10px #00ff00, inset 0 0 5px #00ff00;
-  transition: all 0.3s ease;
+  box-shadow: 0 0 10px #00ffc3;
+  transition: background-color 0.3s ease;
 }
 
-input[type="submit"]:hover {
-  background-color: #000;
-  color: #00ff00;
-  box-shadow: 0 0 15px #00ff00, inset 0 0 10px #00ff00;
+.btn-primary:hover {
+  background-color: #00d1a3;
 }
 
-/* Mensagens 
-.message {
-  text-align: center;
-  font-size: 1.1em;
-  font-weight: bold;
-  text-shadow: 0 0 5px currentColor;
-  margin-top: 10px;
+.toggle-btn {
+  background-color: transparent;
+  color: #00ffc3;
+  border-color: #00ffc3;
+  box-shadow: 0 0 6px #00ffc3;
 }
 
-.message.success {
-  color: #00ff00;
+.toggle-btn:hover {
+  background-color: #00ffc3;
+  color: #0c1c1e;
 }
-
-.message.error {
-  color: #ff4444;
-}
-
-.message.processing {
-  color: #ffff00;
-}*/
 </style>

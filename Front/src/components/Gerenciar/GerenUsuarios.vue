@@ -111,4 +111,86 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap');
+
+body {
+  background: radial-gradient(ellipse at center, #1a2a30 0%, #0c1c1e 100%);
+  font-family: 'Orbitron', sans-serif;
+  color: #fff;
+  margin: 0;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.container {
+  background: rgba(10, 20, 24, 0.95);
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: 0 0 16px #00ffc3;
+}
+
+h1 {
+  text-align: center;
+  color: #ffffff;
+  text-shadow: 0 0 8px #00ffc3;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.table {
+  background-color: transparent;
+  color: white;
+  border-collapse: separate;
+  border-spacing: 0;
+  box-shadow: 0 0 16px #00ffc3a6;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table th,
+.table td {
+  text-align: center;
+  vertical-align: middle;
+  color: white !important;
+  background-color: transparent !important;
+  border: none;
+  font-weight: 500;
+}
+
+.table thead th {
+  background-color: #00ffc3 !important;
+  color: #0c1c1e !important;
+  text-shadow: 0 0 4px #00ffc3;
+}
+
+.table-hover tbody tr:hover {
+  background-color: rgba(0, 255, 195, 0.15);
+}
+
+.btn-success {
+  background-color: #00ffc3;
+  border: none;
+  color: #0c1c1e;
+  font-weight: bold;
+  box-shadow: 0 0 10px #00ffc3;
+  transition: background-color 0.3s ease;
+}
+
+.btn-success:hover {
+  background-color: #00c0a0;
+}
+
+.btn-danger {
+  background-color: #ff4c4c;
+  border: none;
+  color: white;
+  box-shadow: 0 0 6px #ff4c4c;
+  transition: background-color 0.3s ease;
+}
+
+.btn-danger:hover {
+  background-color: #d63434;
+}
+</style>
+

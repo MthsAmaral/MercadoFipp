@@ -98,114 +98,57 @@ export default {
 </script>
 
 <style>
-#menu {
-  background-color: #faf628;
-  padding: 10px 20px;
-  color: #333;
-  font-family: sans-serif;
-}
-
-/* Título */
-h1 {
-  font-size: 24px;
-  font-weight: bold;
-  color: #333;
-}
-
-/* Botões/link do menu com visual padrão */
-.custom-btn {
-  background: none;
-  border: none;
-  padding: 8px 12px;
-  color: #333;
-  cursor: pointer;
-  transition: background 0.3s;
-  font-weight: 500;
-}
-
-.custom-btn:hover,
-.dropdown-item:hover {
-  background-color: #dcdcdc;
-  border-radius: 4px;
-  text-decoration: none;
-}
-
-/* Botão de busca */
-.btn-custom {
-  background-color: #28a745;
-  color: white;
-  border: none;
-}
-
-.btn-custom:hover {
-  background-color: #218838;
-}
-
-a {
-  text-decoration: none;
-}
-
-.dropdown-menu {
-  border-radius: 4px;
-}
-
-
-/*
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'VT323', 'Share Tech Mono', monospace;
-  background-color: #0a0a0a;
-  color: #00ff00;
-  min-height: 100vh;
-}
 
 #menu {
-  display: flex;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.9);
-  border-bottom: 2px solid #00ff00;
-  padding: 10px 0;
-  box-shadow: 0 0 15px #00ff00;
-  position: sticky;
+  position: fixed;
   top: 0;
-  z-index: 10;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: #0d1117; 
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  animation: slideDown 0.8s ease-out forwards;
 }
 
-#menu > div {
-  margin: 0 10px;
+.navbar .container-fluid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-#menu a {
-  display: block;
-  padding: 10px 20px;
-  background-color: rgba(0, 255, 0, 0.1);
-  border: 1px solid #00ff00;
-  color: #00ff00;
-  text-decoration: none;
-  font-size: 1.3em;
+.navbar-nav {
+  display: flex;
+  align-items: center;
+}
+
+.nav-link, .navbar-brand, .dropdown-item, .btn {
   transition: all 0.3s ease;
-  box-shadow: inset 0 0 5px #00ff00;
-  text-align: center;
-  border-radius: 4px;
 }
 
-#menu a:hover,
-#menu a.router-link-exact-active {
-  background-color: #00ff00;
-  color: #0a0a0a;
-  box-shadow: 0 0 10px #00ff00;
+.nav-link:hover, .navbar-brand:hover, .dropdown-item:hover {
+  color: #00ffd5;
+  text-shadow: 0 0 8px #00ffd5;
 }
 
-#app {
-  font-family: 'VT323', monospace;
-  text-align: center;
-  color: #00ff00;
-  margin-top: 30px;
-  padding: 20px;
-}*/
+.btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 10px #00ffd5;
+}
+
+.d-flex {
+  display: flex;
+  align-items: center;
+}
+
+@keyframes slideDown {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 </style>

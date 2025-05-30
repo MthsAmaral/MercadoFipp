@@ -83,9 +83,69 @@ export default {
   }
 };
 </script>
-
 <style scoped>
-.table th, .table td {
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap');
+
+body {
+  background: radial-gradient(ellipse at center, #1a2a30 0%, #0c1c1e 100%);
+  font-family: 'Orbitron', sans-serif;
+  color: #cde4e5;
+  margin: 0;
+  padding: 20px;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1000px;
+  margin: auto;
+  color: #ffffff;
+}
+
+h1 {
+  text-align: center;
+  color: #ffffff;
+  text-shadow: 0 0 8px #00ffc3;
+  font-weight: 700;
+}
+
+.custom-table {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #00ffc3;
+  box-shadow: 0 0 12px #00ffc3a2;
+  background-color: rgba(10, 20, 24, 0.9);
+  color: #ffffff;
+}
+
+.custom-table thead {
+  background-color: rgba(0, 255, 195, 0.2);
+  color: #ffffff;
+  text-shadow: 0 0 6px #00ffc3;
+}
+
+.custom-table th,
+.custom-table td {
   vertical-align: middle;
+  text-align: center;
+  border-color: #00ffc3;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.custom-table tbody tr:hover {
+  background-color: rgba(0, 255, 195, 0.08);
+}
+
+.delete-btn {
+  background-color: #ff4c4c;
+  border: none;
+  color: white;
+  box-shadow: 0 0 6px #ff4c4c;
+  transition: background-color 0.3s ease;
+}
+
+.delete-btn:hover {
+  background-color: #d63434;
 }
 </style>
+

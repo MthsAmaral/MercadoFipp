@@ -129,4 +129,129 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap');
+
+body {
+  background: radial-gradient(circle at top, #1a2a30 0%, #0c1c1e 100%);
+  font-family: 'Orbitron', sans-serif;
+  color: #cde4e5;
+  margin: 0;
+}
+
+/* Container principal */
+.container {
+  background-color: rgba(20, 30, 36, 0.85);
+  border-radius: 16px;
+  box-shadow: 0 0 25px rgba(0, 255, 195, 0.15);
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Animação */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Título e preço */
+h2 {
+  font-weight: 600;
+  text-shadow: 0 0 6px #00ffc3;
+}
+
+h2.text-primary {
+  color: #00ffc3 !important;
+}
+
+h2.text-success {
+  color: #22ff95 !important;
+  text-shadow: 0 0 4px #22ff95b0;
+}
+
+/* Texto */
+p {
+  font-size: 0.95rem;
+}
+
+/* Informações */
+.bg-white {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid #00ffc3;
+  border-radius: 12px;
+  box-shadow: 0 0 12px #00ffc362;
+  color: #cde4e5;
+}
+
+/* Botões */
+button.btn-success {
+  background-color: #22ff95;
+  color: #0c1c1e;
+  font-weight: bold;
+  border: none;
+  transition: 0.3s;
+  box-shadow: 0 0 8px #22ff95a4;
+}
+
+button.btn-success:hover {
+  background-color: #5affb3;
+  box-shadow: 0 0 12px #22ff95;
+}
+
+button.btn-outline-primary {
+  color: #00ffc3;
+  border: 1px solid #00ffc3;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+button.btn-outline-primary:hover {
+  background-color: #00ffc3;
+  color: #0c1c1e;
+  box-shadow: 0 0 12px #00ffc3;
+}
+
+button.btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  transition: 0.3s;
+}
+
+button.btn-secondary:hover {
+  background-color: #8e99a3;
+  color: #0c1c1e;
+}
+
+/* Carrossel */
+.carousel-inner img {
+  border-radius: 10px;
+  border: 2px solid #00ffc3;
+  box-shadow: 0 0 12px #00ffc380;
+}
+
+/* Indicadores */
+.carousel-indicators [data-bs-target] {
+  background-color: #00ffc3;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  filter: brightness(0) saturate(100%) invert(86%) sepia(32%) saturate(2872%) hue-rotate(115deg) brightness(102%) contrast(101%);
+}
+
+/* Alertas */
+.alert-danger {
+  background-color: rgba(255, 0, 0, 0.1);
+  color: #ff6a6a;
+  border: 1px solid #ff4f4f;
+  font-weight: 600;
+}
+</style>
+

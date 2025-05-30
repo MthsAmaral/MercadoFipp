@@ -90,5 +90,83 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600&display=swap');
 
+body {
+  background: radial-gradient(circle at top, #1a2a30 0%, #0c1c1e 100%);
+  font-family: 'Orbitron', sans-serif;
+  color: #cde4e5;
+  margin: 0;
+}
+
+.container {
+  background-color: rgba(20, 30, 36, 0.8);
+  border-radius: 12px;
+  padding: 2rem;
+  box-shadow: 0 0 20px rgba(0, 255, 195, 0.2);
+}
+
+h2 {
+  color: #ffffff;
+  text-shadow: 0 0 6px #00ffc3;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.card {
+  background-color: rgba(15, 25, 28, 0.9);
+  border: 1px solid #00ffc3;
+  box-shadow: 0 0 12px #00ffc3a2;
+  border-radius: 12px;
+}
+
+.card-header {
+  background-color: #00ffc3;
+  color: #0c1c1e;
+  font-weight: bold;
+  font-size: 1.2rem;
+  border-radius: 12px 12px 0 0;
+}
+
+.card-body {
+  padding: 1.5rem;
+}
+
+textarea {
+  background-color: rgba(255, 255, 255, 0.05);
+  color: #cde4e5;
+  border: 1px solid #00ffc3;
+  resize: none;
+}
+
+textarea::placeholder {
+  color: #a0cfcf;
+}
+
+.btn-warning {
+  background-color: #ffc107;
+  border: none;
+  font-weight: 600;
+  box-shadow: 0 0 6px #ffc107b7;
+  transition: 0.3s;
+}
+
+.btn-warning:hover {
+  background-color: #ffdb6f;
+  color: #0c1c1e;
+  box-shadow: 0 0 10px #ffc107;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  border: none;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.btn-secondary:hover {
+  background-color: #8e99a3;
+  color: #0c1c1e;
+}
 </style>
