@@ -47,7 +47,12 @@ public class AnuncioService {
     }
 
     public boolean addFoto(MultipartFile[] fotos, long id_anuncio) {
+        //System.out.println("Total de fotos recebidas: " + (fotos != null ? fotos.length : 0));
+        if (fotos == null || fotos.length == 0) {
+            return true; // Nada a fazer, mas não é erro
+        }
         try {
+
             for (MultipartFile foto : fotos) {
                 byte[] bytes = foto.getBytes();
                 String nomeArq = foto.getOriginalFilename();

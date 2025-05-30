@@ -54,6 +54,9 @@ public class AnuncioRestController {
         return ResponseEntity.badRequest().body(new Erro("Anúncios não encontrados!"));
     }
 
+
+
+    //posts
     @PostMapping(value = "add-pergunta/{id}")
     public ResponseEntity<Object> addPergunta(@PathVariable(name = "id") Long idAnuncio, @RequestBody Map dados) {
         if (anuncioService.addPergunta(idAnuncio, (String) dados.get("pergunta")))
@@ -79,9 +82,11 @@ public class AnuncioRestController {
     public ResponseEntity<Object> addAnuncio(@RequestPart("anuncio") Anuncio anuncio, @RequestPart(value = "fotos", required = false) MultipartFile[] fotos) {
         Anuncio novo = anuncioService.save(anuncio, fotos);
         if (novo != null)
-            return ResponseEntity.ok(anuncio);
+            return ResponseEntity.ok(novo);
         return ResponseEntity.badRequest().body(new Erro("Erro ao cadastrar anúncio!"));
     }
+
+
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Object> delAnuncio(@PathVariable Long id) {

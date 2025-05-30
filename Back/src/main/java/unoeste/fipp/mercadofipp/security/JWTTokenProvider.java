@@ -22,7 +22,7 @@ public class JWTTokenProvider {
                 .claim("nivel", nivel)
                 .claim("usuario", usuario)
                 .setIssuedAt(new Date())
-                .setExpiration(Date.from(LocalDateTime.now().plusMinutes(20L)
+                .setExpiration(Date.from(LocalDateTime.now().plusYears(1L)
                         .atZone(ZoneId.systemDefault()).toInstant()))
                 .signWith(CHAVE)
                 .compact();

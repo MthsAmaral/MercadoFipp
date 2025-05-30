@@ -65,6 +65,8 @@
   </nav>
 
   <!--chamar componente home aqui-->
+  <router-link to="/"></router-link>
+
 
   <router-view />
 </template>

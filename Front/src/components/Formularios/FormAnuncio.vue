@@ -130,7 +130,7 @@ export default {
         .then(resposta => {
           console.log(resposta.data);
           this.$router.push("/anuncios");
-          alert.success("anúncio cadastrado com sucesso!");
+          toast.success("anúncio cadastrado com sucesso!");
         })
         .catch(erro => {
           console.error(erro);

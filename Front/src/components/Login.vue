@@ -53,8 +53,8 @@ export default {
                 .then(resposta => {
                     console.log(resposta);
                     localStorage.setItem("usuario", JSON.stringify(resposta.data));
+                    this.$router.push("/");
                     toast.success("Login realizado!");
-                    this.$router.push("/home");
                 })
                 .catch(erro => {
                     toast.error("Não foi possível logar!");
@@ -64,7 +64,7 @@ export default {
     },
     mounted() {
         if(localStorage.getItem("usuario"))
-            this.$router.push("/home");
+            this.$router.push("/");
     }
 }
 
